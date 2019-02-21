@@ -1,34 +1,35 @@
 <template>
-  <v-navigation-drawer v-model="drawer" fixed permanent absolute width="175">
+  <v-navigation-drawer v-model="drawer" fixed permanent absolute width="200px">
     <div id="logo-bg">
       <div id="logo-main">
-        <!-- <img src="../assets/img/Accenture_Support_Staff.svg" alt /> -->
-      </div>
+        <img src="../assets/img/Accenture_User_Logo.svg" >
+      </img >
+    </div>
     </div>
     <div id="name-bg">
       <div id="name-main">
-        <b>{{ adminName }}</b>
+        <b>{{ userName }}</b>
       </div>
     </div>
     <div>
       <button class="button">
         <img
           class="button-image"
-
+          src="../assets/img/plus.svg"
           alt
         />
         <div class="button-text">
-          New Jobs
+          Create Ticket
         </div>
       </button>
       <button class="button">
         <img
           class="button-image"
-
+          src="../assets/img/faq.svg"
           alt
         />
         <div class="button-text">
-          My Jobs
+          FAQ
         </div>
       </button>
     </div>
@@ -36,12 +37,15 @@
 </template>
 
 <script>
+
 export default {
+
   data() {
     return {
-      adminName: "Insert admin name here"
+      userName: "User 123"
     };
   }
+
 };
 </script>
 
