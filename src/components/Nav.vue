@@ -17,6 +17,7 @@
           class="button-image"
           src="../assets/img/plus.svg"
           alt
+          rounded
         />
         <div class="button-text">
           Create Ticket
@@ -27,6 +28,7 @@
           class="button-image"
           src="../assets/img/faq.svg"
           alt
+          rounded
         />
         <div class="button-text">
           FAQ
@@ -88,7 +90,7 @@ export default {
 
 .button {
   background-color: #ffffff;
-  display: block;
+  display: round;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   text-decoration: none;
