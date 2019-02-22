@@ -104,7 +104,7 @@ export default {
 
 .button:active {
   background: #ffffff;
-  transition-duration: 0.1s;
+  transition-duration: 0.2s;
 }
 
 .button:focus {
