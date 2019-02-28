@@ -7,8 +7,6 @@
   </v-app>
 </template>
 
-
-
 <style>
 /* @font-face {
   font-family: "HelveticaNeueMedium";

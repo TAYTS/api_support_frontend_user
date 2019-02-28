@@ -1,35 +1,31 @@
 <template>
-  <v-navigation-drawer v-model="drawer" fixed permanent absolute width="200px">
+  <v-navigation-drawer
+    v-model="drawer"
+    class="drawcolor"
+    fixed
+    permanent
+    absolute
+    width="200px"
+  >
     <div id="logo-bg">
       <div id="logo-main">
-        <img src="../assets/img/Accenture_User_Logo.svg" >
-      </img >
-    </div>
+        <img src="../assets/img/Accenture_User_Logo.svg" />
+      </div>
     </div>
     <div id="name-bg">
       <div id="name-main">
         <b>{{ userName }}</b>
       </div>
     </div>
-    <div>
-      <button class="button">
-        <img
-          class="button-image"
-          src="../assets/img/plus.svg"
-          alt
-          rounded
-        />
+    <div class="whole">
+      <button class="button my-2">
+        <img class="button-image" src="../assets/img/plus.svg" alt />
         <div class="button-text">
           Create Ticket
         </div>
       </button>
       <button class="button">
-        <img
-          class="button-image"
-          src="../assets/img/faq.svg"
-          alt
-          rounded
-        />
+        <img class="button-image" src="../assets/img/faq.svg" alt rounded />
         <div class="button-text">
           FAQ
         </div>
@@ -39,21 +35,18 @@
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
-      userName: "User 123"
+      userName: "Kenneth"
     };
   }
-
 };
 </script>
 
 <style scoped>
 #logo-bg {
-  background-color: #f7e8ff;
+  background-color: #ffffff;
   padding-top: 10px;
 }
 
@@ -64,38 +57,70 @@ export default {
 }
 
 #name-bg {
-  background-color: #dedede;
+  background-color: #f2f2f2;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
 #name-main {
+  padding-top: 10px;
+  font-size: 18px;
   text-align: center;
 }
-
+#app1 {
+  font-size: 10px;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-family: HelveticaNeueMedium;
+  padding: 10px;
+  margin-left: 40px;
+  height: 45px;
+}
+#app2 {
+  font-size: 15px;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-family: HelveticaNeueMedium;
+  height: 100%;
+  margin-left: 40px;
+  padding: 10px;
+  width: 100px;
+}
 .button-image {
   width: 30px;
   margin-top: 7px;
   float: left;
-  margin-left: 30px;
+  margin-left: 15px;
 }
 
 .button-text {
   text-align: left;
   padding: 10px;
-  margin-left: 60px;
-  font-size: 18px;
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 15px;
   color: #000000;
 }
 
 .button {
-  background-color: #ffffff;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+
   display: round;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   text-decoration: none;
   cursor: pointer;
-  width: 100%;
+  width: 80%;
+}
+
+.whole {
+  text-align: center;
+  margin: auto;
+}
+
+.drawcolor {
+  background-color: #f2f2f2;
 }
 
 .button:hover {
