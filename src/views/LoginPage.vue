@@ -54,6 +54,10 @@
                       </v-layout>
                     </v-card-actions>
                   </v-card>
+                  <a id="signin-button" v-on:click="signIn">
+                    <i class="fa fa-google-plus-official fa-3x"></i>
+                    Sign in with Google
+                  </a>
                 </v-flex>
               </v-form>
             </v-layout>
@@ -65,6 +69,8 @@
 </template>
 
 <script>
+import Vue from "vue";
+
 export default {
   data: () => {
     return {
@@ -124,6 +130,22 @@ export default {
     },
     update_error_message() {
       this.error_messages.pop();
+    },
+    signIn() {
+      Vue.googleAuth().signIn(authorizationCode => {
+        this.$store
+          .dispatch("user/glogin", {
+            code: authorizationCode,
+            redirect_uri: "postmessage"
+          })
+          .then(status => {
+            if (status === 1) {
+              this.$router.replace("/");
+            } else {
+              alert("Unable to login");
+            }
+          });
+      });
     }
   }
 };
