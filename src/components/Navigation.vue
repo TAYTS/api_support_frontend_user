@@ -1,12 +1,5 @@
 <template>
-  <v-navigation-drawer
-    v-model="drawer"
-    class="drawcolor"
-    fixed
-    permanent
-    absolute
-    width="200px"
-  >
+  <v-navigation-drawer class="drawcolor" fixed permanent absolute width="200px">
     <div id="logo-bg">
       <div id="logo-main">
         <img src="../assets/img/Accenture_User_Logo.svg" />
@@ -20,15 +13,11 @@
     <div class="whole">
       <button class="button my-2">
         <img class="button-image" src="../assets/img/plus.svg" alt />
-        <div class="button-text">
-          Create Ticket
-        </div>
+        <div class="button-text">Create Ticket</div>
       </button>
       <button class="button">
         <img class="button-image" src="../assets/img/faq.svg" alt rounded />
-        <div class="button-text">
-          FAQ
-        </div>
+        <div class="button-text">FAQ</div>
       </button>
     </div>
   </v-navigation-drawer>
