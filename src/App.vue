@@ -1,18 +1,21 @@
 <template>
   <v-app id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>-->
-    <router-view />
+    <router-view/>
   </v-app>
 </template>
 
+<script>
+export default {
+  name: "App"
+};
+</script>
+
 <style>
-/* @font-face {
+@font-face {
   font-family: "HelveticaNeueMedium";
   src: url(./assets/fonts/Helvetica-Neue-Medium.ttf);
-} */
-/*
+}
+
 *,
 *::before,
 *::after {
@@ -20,7 +23,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "HelveticaNeueMedium";
-} */
+}
 
 html,
 body {

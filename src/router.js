@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Dash from "./views/Dash.vue";
+import LoginPage from "./views/LoginPage.vue";
+import Dashboard from "./views/Dashboard.vue";
 
 Vue.use(Router);
 
@@ -10,8 +11,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Dash",
-      component: Dash
+      name: "Dashboard",
+      component: Dashboard
+    },
+    {
+      path: "/login",
+      name: "LoginPage",
+      component: LoginPage
     }
   ]
 });
