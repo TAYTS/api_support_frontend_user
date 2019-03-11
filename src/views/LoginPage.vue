@@ -6,7 +6,7 @@
           <img class="logo-main" src="../assets/img/Accenture_Support_Staff.svg" alt>
         </v-flex>
         <v-flex xs1 class="text-xs-center">
-          <div class="divider"></div>
+          <div class="main-divider"></div>
         </v-flex>
         <v-flex xs7 class="text-xs-left">
           <v-container class="form__container">
@@ -54,10 +54,23 @@
                       </v-layout>
                     </v-card-actions>
                   </v-card>
-                  <a id="signin-button" v-on:click="signIn">
-                    <i class="fa fa-google-plus-official fa-3x"></i>
-                    Sign in with Google
-                  </a>
+                </v-flex>
+                <v-flex xs5 class="login-options_container">
+                  <div class="separator">
+                    <hr class="login-divider">
+                    <p>
+                      <em>OR</em>
+                    </p>
+                    <hr class="login-divider">
+                  </div>
+                  <div class="social-btns">
+                    <button type="button" class="google-button" v-on:click="signIn">
+                      <span class="google-button__icon">
+                        <img src="../assets/icons/google_icon.svg" />
+                      </span>
+                      <span class="google-button__text">Sign in with Google</span>
+                    </button>
+                  </div>
                 </v-flex>
               </v-form>
             </v-layout>
@@ -167,7 +180,7 @@ export default {
 }
 
 .logo-main {
-  width: 20vw;
+  width: 300px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   transform: translateX(-20%);
@@ -182,9 +195,9 @@ export default {
   transform: translateX(0) !important;
 }
 
-.divider {
+.main-divider {
   width: 5px;
-  height: 50vh;
+  height: 500px;
   background-image: radial-gradient(white 60%, rgba(255, 255, 255, 0) 90%);
   display: inline-block;
   border-radius: 10px;
@@ -202,5 +215,76 @@ export default {
   padding: 0;
   margin: 0;
   width: 60%;
+}
+
+.separator {
+  margin: 16px 0px;
+  line-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator > p {
+  display: inline-block;
+  margin: 0 16px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.separator > hr {
+  border: 1.5px solid #9f2edf;
+  border-radius: 1.5px;
+  width: 42%;
+  display: inline-block;
+}
+
+.social-btns {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+}
+
+.google-button {
+  height: 100%;
+  width: 80%;
+  background: white;
+  color: #737373;
+  border-radius: 5px;
+  white-space: nowrap;
+  box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.05);
+  transition-property: background-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+  padding: 0;
+}
+
+.google-button:focus,
+.google-button:hover {
+  box-shadow: 1px 4px 5px 1px rgba(0, 0, 0, 0.1);
+  outline: 0;
+}
+
+.google-button:active {
+  background-color: #e5e5e5;
+  box-shadow: none;
+  transition-duration: 10ms;
+}
+
+.google-button__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 28px;
+  height: 28px;
+}
+
+.google-button__text {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>
