@@ -211,6 +211,10 @@ export default {
   opacity: 0;
 }
 
+.action__container {
+  padding: 8px 12px;
+}
+
 .action__container > * {
   padding: 0;
   margin: 0;
