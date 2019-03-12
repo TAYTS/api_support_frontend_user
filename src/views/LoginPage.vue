@@ -66,7 +66,7 @@
                   <div class="social-btns">
                     <button type="button" class="google-button" v-on:click="signIn">
                       <span class="google-button__icon">
-                        <img src="../assets/icons/google_icon.svg" />
+                        <img src="../assets/icons/google_icon.svg">
                       </span>
                       <span class="google-button__text">Sign in with Google</span>
                     </button>
@@ -242,14 +242,11 @@ export default {
 
 .social-btns {
   height: 50px;
-  display: flex;
-  justify-content: space-between;
-  justify-content: center;
 }
 
 .google-button {
   height: 100%;
-  width: 80%;
+  width: 100%;
   background: white;
   color: #737373;
   border-radius: 5px;
@@ -259,6 +256,8 @@ export default {
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .google-button:focus,
@@ -283,8 +282,8 @@ export default {
 .google-button__text {
   display: inline-block;
   vertical-align: middle;
-  padding: 0 24px;
   font-size: 16px;
   font-weight: bold;
+  margin: 0 15% 0 10%;
 }
 </style>
