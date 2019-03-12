@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Navigation></Navigation>
+    <NavigationBar></NavigationBar>
   </div>
 </template>
 
 <script>
-import Navigation from "@/components/Navigation.vue";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 export default {
   components: {
-    Navigation
+    NavigationBar
   },
   mounted() {
     // 1. Check if the user has been authenticate
