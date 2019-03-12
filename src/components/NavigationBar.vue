@@ -13,7 +13,11 @@
         <v-icon class="account-icon" x-large dark color="accent" slot="activator">account_circle</v-icon>
         <v-icon class="arrow-icon" color="accent" slot="activator">keyboard_arrow_down</v-icon>
         <v-list dense class="options-list">
-          <v-list-tile v-for="(item, index) in accountOptions" :key="index" @click="testing">
+          <v-list-tile
+            v-for="(item, index) in accountOptions"
+            :key="index"
+            @click="handle_func_call(item.func)"
+          >
             <v-list-tile-action>
               <v-icon color="white">{{item.icon}}</v-icon>
             </v-list-tile-action>
@@ -30,13 +34,26 @@
 <script>
 export default {
   data: () => ({
-    accountOptions: [{ icon: "exit_to_app", title: "Sign Out" }]
+    accountOptions: [
+      { icon: "exit_to_app", title: "Sign Out", func: "signOut" }
+    ]
   }),
   methods: {
-    testing() {
-      console.log("Sign out");
-      const arrowIcon = document.querySelector(".arrow-icon");
-      arrowIcon.classList.toggle("down");
+    // Helper function for dynamic bind the function call to each list element
+    handle_func_call(func_name) {
+      this[func_name]();
+    },
+    signOut() {
+      this.$store.dispatch("user/logout").then(status => {
+        if (status === 1) {
+          this.$router.replace("/login");
+        } else {
+          alert("Unable to logout");
+        }
+        // Handle the arrow animation
+        const arrowIcon = document.querySelector(".arrow-icon");
+        arrowIcon.classList.toggle("down");
+      });
     }
   },
   mounted() {

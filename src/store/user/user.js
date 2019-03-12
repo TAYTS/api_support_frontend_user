@@ -85,6 +85,22 @@ const actions = {
       .catch(() => {
         return 0;
       });
+  },
+  logout() {
+    return axios
+      .post("/users/logout")
+      .then(response => {
+        if (response.status === 200 && response.data.status === 1) {
+          // Clean session storage
+          sessionStorage.clear();
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+      .catch(() => {
+        return 0;
+      });
   }
 };
 
