@@ -1,15 +1,19 @@
 <template>
   <div>
     <NavigationBar></NavigationBar>
+    <SidePanel></SidePanel>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import NavigationBar from "@/components/NavigationBar.vue";
+import SidePanel from "@/components/SidePanel.vue";
 
 export default {
   components: {
-    NavigationBar
+    NavigationBar,
+    SidePanel
   },
   mounted() {
     // 1. Check if the user has been authenticate
