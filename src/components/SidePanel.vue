@@ -6,12 +6,13 @@
     permanent
     absolute
   >
-    <v-list class="testing">
+    <v-list>
       <v-list-tile
         v-for="(item, index) in items"
         :key="index"
         :to="item.path"
         active-class="hightlighted"
+        class="navigation-item"
       >
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
@@ -45,7 +46,7 @@ export default {
 <style>
 .side-panel__container {
   top: 60px;
-  padding-top: 50px;
+  padding: 50px 15px;
 }
 
 .hightlighted {
@@ -55,5 +56,15 @@ export default {
 .navigation-title {
   font-size: 16px;
   font-weight: bold;
+}
+
+.navigation-item {
+  margin: 10px 0;
+}
+
+.navigation-item:hover,
+.navigation-item > a:hover {
+  background-color: #d099ef;
+  border-radius: 10px;
 }
 </style>
