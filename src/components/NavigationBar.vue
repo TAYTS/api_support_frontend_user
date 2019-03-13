@@ -72,6 +72,9 @@ export default {
 <style scoped>
 .nav-bar__container {
   height: 60px;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
   background-color: #d099ef;
   display: flex;
   align-items: center;
