@@ -12,7 +12,7 @@ const actions = {
       .then(response => {
         if (response.status === 200 && response.data.status === 1) {
           commit("get_tokens");
-          sessionStorage.setItem("remember", payload.remember);
+          localStorage.setItem("remember", payload.remember);
           return response.data.status;
         } else {
           deleteAllCookies();
@@ -27,7 +27,7 @@ const actions = {
     commit("get_tokens");
     let status;
     if (state.access_token && state.refresh_token) {
-      const remember = sessionStorage.getItem("remember");
+      const remember = localStorage.getItem("remember");
       if (remember === "true") {
         axios
           .get("/users/refresh", {
@@ -75,7 +75,7 @@ const actions = {
         if (response.status === 200 && response.data.status === 1) {
           commit("get_tokens");
           // Always remember for Google login
-          sessionStorage.setItem("remember", true);
+          localStorage.setItem("remember", true);
           return response.data.status;
         } else {
           deleteAllCookies();
@@ -91,8 +91,8 @@ const actions = {
       .post("/users/logout")
       .then(response => {
         if (response.status === 200 && response.data.status === 1) {
-          // Clean session storage
-          sessionStorage.clear();
+          // Clean local storage
+          localStorage.clear();
           return 1;
         } else {
           return 0;
@@ -125,7 +125,8 @@ const mutations = {
         refresh_token = cookies[i].match(pattern2)[1];
       }
     }
-
+    localStorage.setItem("access_token", access_token);
+    localStorage.setItem("refresh_token", refresh_token);
     state.access_token = access_token;
     state.refresh_token = refresh_token;
   }
