@@ -79,7 +79,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 0.5px 20px 2px #9f2edf;
+  box-shadow: 0 0 15px 0 #111111;
 }
 
 .main-logo {
