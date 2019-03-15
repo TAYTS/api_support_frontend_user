@@ -18,7 +18,6 @@ Vue.googleAuth().load();
 /*
  * Axios configuration
  */
-axios.defaults.headers.post["Content-Typ"] = "application/json";
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
