@@ -30,7 +30,11 @@ export default {
   data() {
     return {
       items: [
-        { title: "Ticket Records", icon: "view_list", path: "/" },
+        {
+          title: "Ticket Records",
+          icon: "view_list",
+          path: "/ticket-listing"
+        },
         {
           title: "Create Ticket",
           icon: "note_add",
