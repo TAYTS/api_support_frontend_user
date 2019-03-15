@@ -104,11 +104,11 @@ export default {
   mounted() {
     const logo = document.querySelector(".logo-main");
     const form = document.querySelector(".form__container");
-    setTimeout(function() {
+    setTimeout(() => {
       logo.classList.add("show");
       logo.classList.add("move");
     }, 10);
-    setTimeout(function() {
+    setTimeout(() => {
       form.classList.add("show");
       form.classList.add("move");
     }, 10);
