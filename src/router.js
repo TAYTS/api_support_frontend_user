@@ -3,7 +3,7 @@ import Router from "vue-router";
 import LoginPage from "./views/LoginPage.vue";
 import Dashboard from "./views/Dashboard.vue";
 import TicketListing from "./components/TicketListing.vue";
-import Messaging from "./components/Messaging";
+import CreateTicket from "./components/CreateTicket.vue";
 
 Vue.use(Router);
 
@@ -27,9 +27,9 @@ export default new Router({
           component: TicketListing
         },
         {
-          path: ":id",
-          name: "Messaging",
-          component: Messaging
+          path: "create-ticket",
+          name: "CreateTicket",
+          component: CreateTicket
         }
       ]
     }

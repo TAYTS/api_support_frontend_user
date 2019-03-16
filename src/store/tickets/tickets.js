@@ -7,7 +7,6 @@ const state = {
 
 const actions = {
   getTickets() {
-    let status = 0;
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
       return axios
@@ -26,9 +25,35 @@ const actions = {
         });
     } else {
       // Invalid credential
-      status = 0;
       return new Promise(resolve => {
-        resolve(status);
+        resolve(0);
+      });
+    }
+  },
+  createTicket(context, payload) {
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      return axios
+        .post("/tickets/create-tickets", payload, {
+          headers: {
+            "X-CSRF-TOKEN": access_token
+          }
+        })
+        .then(response => {
+          if (response.status === 200 && response.data.status === 1) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          return 0;
+        });
+    } else {
+      // Invalid credential
+      return new Promise(resolve => {
+        resolve(0);
       });
     }
   }
