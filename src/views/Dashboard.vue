@@ -25,7 +25,6 @@ export default {
         this.$router.replace("/login");
       } else {
         // 1.1 Render the user page if the user is authenticated
-        this.$router.push({ name: "TicketListing" });
       }
     });
   }
