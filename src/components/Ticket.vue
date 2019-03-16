@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket-holder" @click="openMessage">
+  <div class="ticket-holder">
     <div class="ticket-title">{{title}}</div>
     <div class="created">{{created}}</div>
     <div class="lastActivity">{{lastActivity}}</div>
