@@ -30,7 +30,7 @@ body {
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 v-app {

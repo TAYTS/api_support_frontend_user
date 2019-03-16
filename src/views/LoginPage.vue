@@ -104,11 +104,11 @@ export default {
   mounted() {
     const logo = document.querySelector(".logo-main");
     const form = document.querySelector(".form__container");
-    setTimeout(function() {
+    setTimeout(() => {
       logo.classList.add("show");
       logo.classList.add("move");
     }, 10);
-    setTimeout(function() {
+    setTimeout(() => {
       form.classList.add("show");
       form.classList.add("move");
     }, 10);
@@ -209,6 +209,10 @@ export default {
   transition: all 0.5s;
   transform: translateX(10%);
   opacity: 0;
+}
+
+.action__container {
+  padding: 8px 12px;
 }
 
 .action__container > * {
