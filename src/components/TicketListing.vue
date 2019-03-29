@@ -29,7 +29,7 @@
           :created="ticket.create_timestamp"
           :lastActivity="ticket.last_activity"
           :status="ticket.status"
-          @click="openMessage(index)"
+          @click="displayTickets(index)"
         ></Ticket>
         <Ticket
           class="openTicket"
@@ -39,7 +39,7 @@
           :created="ticket.create_timestamp"
           :lastActivity="ticket.last_activity"
           :status="ticket.status"
-          @click="openMessage(index)"
+          @click="displayTickets(index)"
         ></Ticket>
       </div>
     </div>
@@ -136,7 +136,7 @@ export default {
         });
       }
     },
-    openTickets(index) {
+    displayTickets(index) {
       // TODO: Redirect to new window for display the ticket messaging
     }
   }
