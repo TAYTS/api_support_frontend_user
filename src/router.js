@@ -4,6 +4,7 @@ import LoginPage from "./views/LoginPage.vue";
 import Dashboard from "./views/Dashboard.vue";
 import TicketListing from "./components/TicketListing.vue";
 import CreateTicket from "./components/CreateTicket.vue";
+import MessagingRoom from "./components/MessagingRoom";
 
 Vue.use(Router);
 
@@ -30,6 +31,12 @@ export default new Router({
           path: "create-ticket",
           name: "CreateTicket",
           component: CreateTicket
+        },
+        {
+          path: "/ticket/:id",
+          name: "DisplayTicket",
+          props: true,
+          component: MessagingRoom
         }
       ]
     }
