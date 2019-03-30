@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ticketlist__container">
+  <v-container class="ticketlist__container" fluid>
     <h2 class="title">Ticket Records</h2>
     <div class="tab-group">
       <button
@@ -29,7 +29,7 @@
           :created="ticket.create_timestamp"
           :lastActivity="ticket.last_activity"
           :status="ticket.status"
-          @click="displayTickets(index)"
+          @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
         <Ticket
           class="openTicket"
@@ -39,7 +39,7 @@
           :created="ticket.create_timestamp"
           :lastActivity="ticket.last_activity"
           :status="ticket.status"
-          @click="displayTickets(index)"
+          @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
       </div>
     </div>
@@ -136,8 +136,8 @@ export default {
         });
       }
     },
-    displayTickets(index) {
-      // TODO: Redirect to new window for display the ticket messaging
+    displayTickets(ticketID) {
+      this.$router.replace("/ticket/" + ticketID);
     }
   }
 };
