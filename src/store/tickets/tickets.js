@@ -33,27 +33,15 @@ const actions = {
   createTicket(context, payload) {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
-      const form = new FormData();
-      for (const key in payload) {
-        if (key !== "file") {
-          form.append(key, payload[key]);
-        }
-      }
-      const files = payload["files"];
-      for (var i = 0; i < files.length; i++) {
-        let file = files[i];
-        form.append("files", file.file);
-      }
       return axios
-        .post("/tickets/create-tickets", form, {
+        .post("/tickets/create-tickets", payload, {
           headers: {
-            "Content-Type": "multipart/form-data",
             "X-CSRF-TOKEN": access_token
           }
         })
         .then(response => {
-          if (response.status === 201 && response.data.status === 1) {
-            return 1;
+          if (response.status === 201 && response.data.id_ticket) {
+            return response.data.id_ticket;
           } else {
             return 0;
           }

@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard__container">
+    <Loader :ready="ready"></Loader>
     <NavigationBar></NavigationBar>
     <SidePanel></SidePanel>
     <div class="content">
@@ -11,21 +12,34 @@
 <script>
 import NavigationBar from "@/components/NavigationBar.vue";
 import SidePanel from "@/components/SidePanel.vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   components: {
     NavigationBar,
-    SidePanel
+    SidePanel,
+    Loader
+  },
+  data: () => {
+    return {
+      ready: false
+    };
   },
   mounted() {
-    // 1. Check if the user has been authenticate
+    // Check if the user has been authenticate
     this.$store.dispatch("user/authenticate", {}).then(status => {
-      // 1.2 Redirect to login page if the user is not authenticated
+      // Redirect to login page if the user is not authenticated
       if (status === 0) {
-        this.$router.replace("/login");
+        this.$router.push({ name: "LoginPage" });
       } else {
-        // 1.1 Render the user page if the user is authenticated
+        // Render the user page if the user is authenticated
         this.$router.push({ name: "TicketListing" });
+        // Get the Twilio access token
+        this.$store.dispatch("messages/initClient").then(status => {
+          if (status) {
+            this.ready = true;
+          }
+        });
       }
     });
   }

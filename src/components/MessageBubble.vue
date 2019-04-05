@@ -1,7 +1,11 @@
 <template>
-  <div :class="(type===2) ? 'message__container reply' : 'message__container'">
+  <div :class="(reply === false) ? 'message__container reply' : 'message__container'">
     <div class="message">
-      <div>{{ message }}</div>
+      <div v-if="type === 'text'">{{ message }}</div>
+      <div v-else>
+        <v-icon color="white" @click="$emit('download-media')">cloud_download</v-icon>
+        {{message}}
+      </div>
     </div>
   </div>
 </template>
@@ -9,7 +13,7 @@
 <script>
 export default {
   name: "MessageBubble",
-  props: ["message", "type"]
+  props: ["message", "type", "reply"]
 };
 </script>
 

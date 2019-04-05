@@ -1,6 +1,7 @@
 import axios from "../../axios/loginAxios";
 
 const state = {
+  id_user_hash: "",
   access_token: "",
   refresh_token: ""
 };
@@ -10,10 +11,11 @@ const actions = {
     return axios
       .post("/users/login", payload)
       .then(response => {
-        if (response.status === 200 && response.data.status === 1) {
-          commit("get_tokens");
+        if (response.status === 200 && response.data.id_user_hash) {
+          const id_user_hash = response.data.id_user_hash;
+          commit("storeCredentials", { id_user_hash });
           localStorage.setItem("remember", payload.remember);
-          return response.data.status;
+          return 1;
         } else {
           deleteAllCookies();
           return 0;
@@ -24,20 +26,23 @@ const actions = {
       });
   },
   authenticate({ commit }) {
-    commit("get_tokens");
+    commit("storeCredentials", { id_user_hash: "" });
     let status;
-    if (state.access_token && state.refresh_token) {
+    const access_token = localStorage.getItem("access_token");
+    const refresh_token = localStorage.getItem("refresh_token");
+    if (access_token) {
       const remember = localStorage.getItem("remember");
       if (remember === "true") {
         axios
           .get("/users/refresh", {
             headers: {
-              "X-CSRF-TOKEN": state.refresh_token
+              "X-CSRF-TOKEN": refresh_token
             }
           })
           .then(response => {
-            if (response.status === 200 && response.data.status === 1) {
-              commit("get_tokens");
+            if (response.status === 200 && response.data.id_user_hash) {
+              const id_user_hash = response.data.id_user_hash;
+              commit("storeCredentials", { id_user_hash });
               status = 1;
             } else {
               status = 0;
@@ -48,12 +53,13 @@ const actions = {
         axios
           .get("/users/authenticate", {
             headers: {
-              "X-CSRF-TOKEN": state.access_token
+              "X-CSRF-TOKEN": access_token
             }
           })
           .then(response => {
-            if (response.status === 200 && response.data.status === 1) {
-              commit("get_tokens");
+            if (response.status === 200 && response.data.id_user_hash) {
+              const id_user_hash = response.data.id_user_hash;
+              commit("storeCredentials", { id_user_hash });
               status = 1;
             } else {
               status = 0;
@@ -72,8 +78,9 @@ const actions = {
     return axios
       .post("/users/glogin", payload)
       .then(response => {
-        if (response.status === 200 && response.data.status === 1) {
-          commit("get_tokens");
+        if (response.status === 200 && response.data.id_user_hash) {
+          const id_user_hash = response.data.id_user_hash;
+          commit("storeCredentials", { id_user_hash });
           // Always remember for Google login
           localStorage.setItem("remember", true);
           return response.data.status;
@@ -105,7 +112,7 @@ const actions = {
 };
 
 const mutations = {
-  get_tokens(state) {
+  storeCredentials(state, { id_user_hash }) {
     // Get the CSRF cookies
     const cookies = document.cookie.split(";");
     // Create the regx pattern to extract the csrf token
@@ -129,6 +136,13 @@ const mutations = {
     localStorage.setItem("refresh_token", refresh_token);
     state.access_token = access_token;
     state.refresh_token = refresh_token;
+    state.id_user_hash = id_user_hash;
+  }
+};
+
+const getters = {
+  getUser: state => {
+    return state.id_user_hash;
   }
 };
 
@@ -150,5 +164,6 @@ export const user = {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 };

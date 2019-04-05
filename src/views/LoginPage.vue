@@ -128,6 +128,7 @@ export default {
           })
           .then(status => {
             if (status === 1) {
+              this.$store.dispatch("messages/initClient");
               this.$router.replace("/");
             } else {
               this.error = true;

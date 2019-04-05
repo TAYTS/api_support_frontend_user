@@ -8,10 +8,12 @@
     </v-toolbar>
     <div class="messages__container">
       <MessageBubble
-        v-for="(message, index) in messages"
-        :key="index"
+        v-for="message in messages"
+        :key="message.index"
         :message="message.message"
         :type="message.type"
+        :reply="message.reply"
+        @download-media="downdloadMedia(message.index)"
       ></MessageBubble>
     </div>
     <v-textarea
@@ -26,7 +28,7 @@
       prepend-inner-icon="attach_file"
       color="accent"
       background-color="lightbackground"
-      @keyup.enter="addMessage"
+      @keyup.enter="sendMessage"
     ></v-textarea>
   </div>
 </template>
@@ -42,36 +44,52 @@ export default {
   data() {
     return {
       message: "",
-      messages: [
-        {
-          message: "hello",
-          type: 1
-        },
-        {
-          message: "reply",
-          type: 2
-        }
-      ]
+      messages: [],
+      channel: null
     };
   },
   props: ["id"],
+  mounted() {
+    this.channel = this.$store.getters["messages/getChannel"](this.id);
+    this.$store
+      .dispatch("messages/getMessages", { id_channel: this.id })
+      .then(messages => {
+        this.messages = [...messages];
+        if (this.channel) {
+          this.channel.on("messageAdded", this.updateMessage);
+        }
+      });
+  },
   methods: {
     ticketListing() {
       this.$router.replace({ name: "TicketListing" });
     },
-    addMessage() {
-      const messages = this.messages;
+    sendMessage() {
       const message = this.message;
       if (message.trim() !== "") {
-        messages.push({
-          message: this.message,
-          type: 2
-        });
-        this.message = "";
-        this.messages = [...messages];
+        this.$store
+          .dispatch("messages/sendMessage", {
+            message,
+            id_channel: this.id
+          })
+          .then(status => {
+            if (status) {
+              this.message = "";
+            }
+          });
       } else {
         this.message = "";
       }
+    },
+    updateMessage() {
+      this.$store
+        .dispatch("messages/getMessages", { id_channel: this.id })
+        .then(messages => {
+          this.messages = [...messages];
+        });
+    },
+    downdloadMedia(index) {
+      this.$store.dispatch("messages/downloadMedia", { index });
     }
   }
 };
