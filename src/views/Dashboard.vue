@@ -18,13 +18,15 @@ export default {
     SidePanel
   },
   mounted() {
-    // 1. Check if the user has been authenticate
+    // Check if the user has been authenticate
     this.$store.dispatch("user/authenticate", {}).then(status => {
-      // 1.2 Redirect to login page if the user is not authenticated
+      // Redirect to login page if the user is not authenticated
       if (status === 0) {
         this.$router.replace("/login");
       } else {
-        // 1.1 Render the user page if the user is authenticated
+        // Get the Twilio access token (assume that it will success)
+        this.$store.dispatch("messages/initClient");
+        // Render the user page if the user is authenticated
         this.$router.push({ name: "TicketListing" });
       }
     });
