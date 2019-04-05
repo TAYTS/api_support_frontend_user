@@ -17,9 +17,6 @@
         <div class="tabview-lastactivity">Last Activity</div>
         <div class="tabview-status">Status</div>
       </div>
-      <div class="loading">
-        <v-progress-circular :size="120" :width="15" indeterminate color="accent"></v-progress-circular>
-      </div>
       <div class="ticket-holders hide">
         <Ticket
           class="closedTicket"
@@ -212,14 +209,6 @@ export default {
   height: 100%;
   padding: 0 50px;
   overflow: auto;
-}
-
-.loading {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .hide {
