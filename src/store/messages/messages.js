@@ -10,52 +10,58 @@ const state = {
 const actions = {
   initClient({ commit }) {
     const access_token = localStorage.getItem("access_token");
-    if (access_token) {
-      // Get the Twilio access token
-      return axios
-        .get("/messages/get_access_token", {
-          headers: {
-            "X-CSRF-TOKEN": access_token
-          }
-        })
-        .then(response => {
-          if (response.status === 200) {
-            // Create Twilio chat client
-            const result = Chat.Client.create(response.data.token)
-              .then(client => {
-                client.on("tokenAboutToExpire", () => {
-                  renewToken();
-                });
-                commit("storeClient", client);
-                // Get all the subscribed channels
-                // client.on("synchronizationStatusUpdated");
-                let channels = [];
-                const result = client
-                  .getSubscribedChannels()
-                  .then(paginator => {
-                    for (let i = 0; i < paginator.items.length; i++) {
-                      channels.push(paginator.items[i]);
-                    }
-                    commit("storeChannels", channels);
-                    return 1;
-                  })
-                  .catch(() => {
-                    return 0;
+    const client = this.getters["messages/getClient"];
+    if (client === null) {
+      if (access_token) {
+        // Get the Twilio access token
+        return axios
+          .get("/messages/get_access_token", {
+            headers: {
+              "X-CSRF-TOKEN": access_token
+            }
+          })
+          .then(response => {
+            if (response.status === 200) {
+              // Create Twilio chat client
+              const result = Chat.Client.create(response.data.token)
+                .then(client => {
+                  client.on("tokenAboutToExpire", () => {
+                    renewToken();
                   });
+                  commit("storeClient", client);
+                  // Get all the subscribed channels
+                  let channels = [];
+                  const result = client
+                    .getSubscribedChannels()
+                    .then(paginator => {
+                      for (let i = 0; i < paginator.items.length; i++) {
+                        channels.push(paginator.items[i]);
+                      }
+                      commit("storeChannels", channels);
+                      return 1;
+                    })
+                    .catch(() => {
+                      return 0;
+                    });
 
-                return result;
-              })
-              .catch(() => {
-                return 0;
-              });
-            return result;
-          } else {
-            return 0;
-          }
+                  return result;
+                })
+                .catch(() => {
+                  return 0;
+                });
+              return result;
+            } else {
+              return 0;
+            }
+          });
+      } else {
+        return new Promise(resolve => {
+          resolve(0);
         });
+      }
     } else {
       return new Promise(resolve => {
-        resolve(0);
+        resolve(1);
       });
     }
   },
