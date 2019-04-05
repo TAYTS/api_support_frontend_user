@@ -55,7 +55,9 @@ export default {
       .dispatch("messages/getMessages", { id_channel: this.id })
       .then(messages => {
         this.messages = [...messages];
-        this.channel.on("messageAdded", this.updateMessage);
+        if (this.channel) {
+          this.channel.on("messageAdded", this.updateMessage);
+        }
       });
   },
   methods: {
