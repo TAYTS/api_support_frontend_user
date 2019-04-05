@@ -239,12 +239,33 @@ export default {
           .dispatch("tickets/createTicket", {
             title,
             category,
-            message,
-            files
+            message
           })
-          .then(status => {
-            if (status === 1) {
-              this.$router.replace({ name: "TicketListing" });
+          .then(id_ticket => {
+            if (id_ticket) {
+              this.$store.dispatch("messages/updateChannels").then(status => {
+                if (status === 1) {
+                  this.$store
+                    .dispatch("messages/sendMessage", {
+                      message,
+                      id_channel: id_ticket
+                    })
+                    .then(status => {
+                      if (status === 1) {
+                        if (files) {
+                          this.$store
+                            .dispatch("messages/sendMedia", {
+                              files,
+                              id_channel: id_ticket
+                            })
+                            .then(() => {
+                              this.$router.replace({ name: "TicketListing" });
+                            });
+                        }
+                      }
+                    });
+                }
+              });
             } else {
               this.snackbar = true;
               this.snackbarText =
