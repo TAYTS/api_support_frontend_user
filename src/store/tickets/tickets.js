@@ -10,7 +10,7 @@ const actions = {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
       return axios
-        .get("/tickets/retrieve-tickets", {
+        .get("/tickets/retrieve-user-tickets", {
           headers: {
             "X-CSRF-TOKEN": access_token
           }
