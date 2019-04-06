@@ -1,4 +1,4 @@
-import axios from "../../axios/loginAxios";
+import axios from "../../axios/messageAxios";
 const Chat = require("twilio-chat");
 
 const state = {

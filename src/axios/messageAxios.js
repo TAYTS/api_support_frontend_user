@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const loginAxios = axios.create({
-  baseURL: "https://authenticate.chocolatepie.tech",
+const messageAxios = axios.create({
+  baseURL: "https://message.chocolatepie.tech",
   headers: {
     "Content-Type": "application/json"
   },
   withCredentials: true
 });
 
-export default loginAxios;
+export default messageAxios;
