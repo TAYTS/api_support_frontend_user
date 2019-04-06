@@ -1,4 +1,4 @@
-import axios from "../../axios/loginAxios";
+import axios from "../../axios/ticketAxios";
 
 const state = {
   open: [],
