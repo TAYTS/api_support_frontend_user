@@ -14,12 +14,12 @@
               <v-form ref="form" v-model="valid" lazy-validation>
                 <v-flex xs5>
                   <v-text-field
-                    v-model="username"
-                    :rules="usernameRules"
+                    v-model="email"
+                    :rules="emailRules"
                     :error-messages="error_messages"
                     @update:error="toggle_error"
                     @input="update_error_message"
-                    label="USERNAME"
+                    label="EMAIL"
                     solo
                     prepend-inner-icon="person"
                     dark
@@ -90,10 +90,10 @@ export default {
       show: false,
       valid: false,
       error: false,
-      username: "",
-      usernameRules: [
-        v => !!v || "Username is required",
-        v => /.+@.+\..+/.test(v) || "Username must be valid"
+      email: "",
+      emailRules: [
+        v => !!v || "Email is required",
+        v => /.+@.+\..+/.test(v) || "Email must be valid"
       ],
       password: "",
       passwordRules: [v => !!v || "Password is required"],
@@ -117,12 +117,12 @@ export default {
     submit() {
       const pass = this.$refs.form.validate();
       if (pass) {
-        const username = this.username;
+        const email = this.email;
         const password = this.password;
         const remember = this.remember;
         this.$store
           .dispatch("user/login", {
-            username,
+            email,
             password,
             remember
           })
@@ -132,9 +132,9 @@ export default {
               this.$router.replace("/");
             } else {
               this.error = true;
-              this.username = "";
+              this.email = "";
               this.password = "";
-              this.error_messages.push("Invalid username or password!");
+              this.error_messages.push("Invalid email or password!");
             }
           });
       }
