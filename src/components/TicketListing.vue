@@ -40,6 +40,10 @@
         ></Ticket>
       </div>
     </div>
+    <v-snackbar v-model="snackbar" class="error-message" bottom>
+      {{ snackbarText }}
+      <v-btn dark flat @click="snackbar=false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -72,9 +76,6 @@ export default {
         // Delay the frontend rendering to allow the v-for to take effective
         // after retrieve the data from server
         setTimeout(() => {
-          // Hide the Loading icon
-          const loading = document.getElementsByClassName("loading");
-          loading[0].classList.add("hide");
           // Render all the tickets
           const ticketHolders = document.getElementsByClassName(
             "ticket-holders"
@@ -83,11 +84,9 @@ export default {
           this.toggleTab(0);
         }, 1000);
       } else {
-        // Hide the Loading icon
-        const loading = document.getElementsByClassName("loading");
-        loading[0].classList.add("hide");
-        console.log("Error in fetching the tickets");
-        // TODO: Display error message
+        this.snackbar = true;
+        this.snackbarText =
+          "Error in fetching the tickets. Please try again later.";
       }
     });
 
