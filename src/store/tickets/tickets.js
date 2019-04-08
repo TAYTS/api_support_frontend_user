@@ -18,10 +18,11 @@ const actions = {
         .then(response => {
           if (response.status === 200) {
             return response.data;
-          } else {
-            // Error when trying to get tickets
-            return 0;
           }
+        })
+        .catch(() => {
+          // Error when fetching tickets
+          return 0;
         });
     } else {
       // Invalid credential
