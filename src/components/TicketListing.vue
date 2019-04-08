@@ -62,7 +62,9 @@ export default {
         { text: "Open Tickets", status: 0 }
       ],
       closedTickets: [],
-      openTickets: []
+      openTickets: [],
+      snackbar: false,
+      snackbarText: ""
     };
   },
   mounted() {
