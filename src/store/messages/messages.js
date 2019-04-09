@@ -182,7 +182,13 @@ const getters = {
     return channel;
   },
   getMessage: state => index => {
-    const message = state.messages[index];
+    let message;
+    for (let i = 0; i < state.messages.length; i++) {
+      if (state.messages[i].index === index) {
+        message = state.messages[i];
+        break;
+      }
+    }
     return message;
   }
 };
