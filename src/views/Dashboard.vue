@@ -33,13 +33,15 @@ export default {
         this.$router.push({ name: "LoginPage" });
       } else {
         // Render the user page if the user is authenticated
-        this.$router.push({ name: "TicketListing" });
         // Get the Twilio access token
-        this.$store.dispatch("messages/initClient").then(status => {
-          if (status) {
-            this.ready = true;
-          }
-        });
+        setTimeout(() => {
+          this.$router.push({ name: "TicketListing" });
+          this.$store.dispatch("messages/initClient").then(status => {
+            if (status) {
+              this.ready = true;
+            }
+          });
+        }, 100);
       }
     });
   }
