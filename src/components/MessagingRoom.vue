@@ -74,9 +74,14 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red lighten-2" @click="cancelUpload">Cancel</v-btn>
+          <v-btn color="red lighten-2" :disabled="uploading" @click="cancelUpload">Cancel</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="accent" :disabled="blockUpload" @click="confirmUpload">Confirm</v-btn>
+          <v-btn
+            color="accent"
+            :loading="uploading"
+            :disabled="uploading"
+            @click="confirmUpload"
+          >Confirm</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -106,7 +111,7 @@ export default {
       maxFileSize: 10485760, // 10MB
       acceptFileTypes: ["application/pdf", "image/jpeg", "image/png"],
       uploadHint: "Max limit 10MB. (Supported format: .pdf, .jpg, .jpeg, .png)",
-      blockUpload: false,
+      uploading: false,
       snackbar: false,
       timeout: 3000,
       snackbarText: "",
@@ -170,7 +175,7 @@ export default {
       this.files.splice(key, 1);
       this.files = [...this.files]; // Replace with new object
       if (this.files.length === 0) {
-        this.blockUpload = true;
+        this.uploading = true;
         this.dialog = false;
       }
     },
@@ -225,10 +230,10 @@ export default {
       // Prompt dialog
       if (this.files.length > 0) {
         this.dialog = true;
-        this.blockUpload = false;
+        this.uploading = false;
       } else {
         this.dialog = false;
-        this.blockUpload = false;
+        this.uploading = false;
       }
     },
     cancelUpload() {
@@ -240,7 +245,7 @@ export default {
       // Send media files
       const files = this.files;
       const id_channel = this.id;
-      this.blockUpload = true;
+      this.uploading = true;
       this.$store
         .dispatch("messages/sendMedia", { files, id_channel })
         .then(status => {
