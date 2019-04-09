@@ -83,7 +83,7 @@ const actions = {
           commit("storeCredentials", { id_user_hash });
           // Always remember for Google login
           localStorage.setItem("remember", true);
-          return response.data.status;
+          return 1;
         } else {
           deleteAllCookies();
           return 0;
