@@ -13,6 +13,7 @@
         :message="message.message"
         :type="message.type"
         :reply="message.reply"
+        :index="message.index"
         @download-media="downdloadMedia(message.index)"
       ></MessageBubble>
     </div>
@@ -95,6 +96,7 @@
 
 <script>
 import MessageBubble from "@/components/MessageBubble.vue";
+import EventBus from "@/store/eventBus.js";
 
 export default {
   name: "MessaggingRoom",
@@ -157,14 +159,20 @@ export default {
       }
     },
     updateMessage() {
+      const messageContainer = document.querySelector(".messages__container");
       this.$store
         .dispatch("messages/getMessages", { id_channel: this.id })
         .then(messages => {
           this.messages = [...messages];
+          setTimeout(() => {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+          }, 1);
         });
     },
     downdloadMedia(index) {
-      this.$store.dispatch("messages/downloadMedia", { index });
+      this.$store.dispatch("messages/downloadMedia", { index }).then(() => {
+        EventBus.$emit("finishDownload", index);
+      });
     },
     addFiles() {
       this.$refs.upload.click();
@@ -252,6 +260,7 @@ export default {
           if (status > 0) {
             // Success
             // Clear the buffer
+            this.uploading = false;
             this.fileSize = 0;
             this.files = [];
             this.dialog = false;

@@ -39,8 +39,7 @@ export default {
           title: "Create Ticket",
           icon: "note_add",
           path: "/create-ticket"
-        },
-        { title: "FAQs", icon: "contact_support", path: "/" }
+        }
       ]
     };
   }
