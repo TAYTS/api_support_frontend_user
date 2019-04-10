@@ -57,6 +57,32 @@ const actions = {
         resolve(0);
       });
     }
+  },
+  resolveTicket(context, id_ticket_hash) {
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      return axios
+        .put("/tickets/resolve-ticket", id_ticket_hash, {
+          headers: {
+            "X-CSRF-TOKEN": access_token
+          }
+        })
+        .then(response => {
+          if (response.status === 200 && response.data.status === 1) {
+            return response.data.status;
+          } else {
+            return 0;
+          }
+        })
+        .catch(() => {
+          return 0;
+        });
+    } else {
+      // Invalid credential
+      return new Promise(resolve => {
+        resolve(0);
+      });
+    }
   }
 };
 

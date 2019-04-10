@@ -1,10 +1,14 @@
 <template>
   <div class="messaging-room__container">
     <v-toolbar class="messaging-room__header" dark color="accent">
-      <v-btn icon class="hidden-xs-only" @click="ticketListing">
+      <v-btn icon @click="ticketListing">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>Ticket: {{ id }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="resolveTicket">
+        <v-icon>check</v-icon>
+      </v-btn>
     </v-toolbar>
     <div class="messages__container">
       <MessageBubble
@@ -264,6 +268,16 @@ export default {
             this.fileSize = 0;
             this.files = [];
             this.dialog = false;
+          }
+        });
+    },
+    resolveTicket() {
+      const id_ticket_hash = this.id;
+      this.$store
+        .dispatch("tickets/resolveTicket", { id_ticket_hash })
+        .then(status => {
+          if (status === 1) {
+            this.$router.replace({ name: "TicketListing" });
           }
         });
     }
