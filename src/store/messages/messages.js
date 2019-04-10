@@ -141,8 +141,8 @@ const actions = {
   downloadMedia(context, { index }) {
     const message = this.getters["messages/getMessage"](index);
     if (message) {
-      message.media.getContentUrl().then(url => {
-        axios({
+      return message.media.getContentUrl().then(url => {
+        return axios({
           url: url,
           responseType: "blob",
           withCredentials: false
@@ -153,6 +153,7 @@ const actions = {
           link.setAttribute("download", message.media.filename);
           document.body.appendChild(link);
           link.click();
+          return 1;
         });
       });
     }

@@ -75,7 +75,7 @@
             </v-select>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="accent" @click="submit">Submit</v-btn>
+              <v-btn color="accent" :loading="creating" :disabled="creating" @click="submit">Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
@@ -183,7 +183,8 @@ export default {
       dialog: false,
       type: null,
       fileData: null,
-      uploadHint: "Max limit 10MB. (Supported format: .pdf, .jpg, .jpeg, .png)"
+      uploadHint: "Max limit 10MB. (Supported format: .pdf, .jpg, .jpeg, .png)",
+      creating: false
     };
   },
   computed: {
@@ -235,6 +236,8 @@ export default {
         const message = this.messages;
         const files = this.files;
 
+        // Block the submit button
+        this.creating = true;
         this.$store
           .dispatch("tickets/createTicket", {
             title,
@@ -252,16 +255,33 @@ export default {
                     })
                     .then(status => {
                       if (status === 1) {
-                        if (files) {
+                        if (files.length > 0) {
                           this.$store
                             .dispatch("messages/sendMedia", {
                               files,
                               id_channel: id_ticket
                             })
-                            .then(() => {
-                              this.$router.replace({ name: "TicketListing" });
+                            .then(status => {
+                              this.creating = false;
+                              this.files = [];
+                              if (status > 0) {
+                                this.$router.replace({ name: "TicketListing" });
+                              } else {
+                                this.snackbar = true;
+                                this.snackbarText =
+                                  "Ticket is created but the files are unable to upload.";
+                              }
                             });
+                        } else {
+                          this.creating = false;
+                          this.$router.replace({ name: "TicketListing" });
                         }
+                      } else {
+                        this.creating = false;
+                        this.$router.replace({ name: "TicketListing" });
+                        this.snackbar = true;
+                        this.snackbarText =
+                          "Ticket is created but the content is unable to send, please update at the Ticket Records.";
                       }
                     });
                 }
