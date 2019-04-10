@@ -157,10 +157,14 @@ export default {
       }
     },
     updateMessage() {
+      const messageContainer = document.querySelector(".messages__container");
       this.$store
         .dispatch("messages/getMessages", { id_channel: this.id })
         .then(messages => {
           this.messages = [...messages];
+          setTimeout(() => {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+          }, 1);
         });
     },
     downdloadMedia(index) {
