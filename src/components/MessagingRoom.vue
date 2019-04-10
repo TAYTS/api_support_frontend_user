@@ -256,6 +256,7 @@ export default {
           if (status > 0) {
             // Success
             // Clear the buffer
+            this.uploading = false;
             this.fileSize = 0;
             this.files = [];
             this.dialog = false;
