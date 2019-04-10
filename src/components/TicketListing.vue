@@ -19,8 +19,8 @@
       </div>
       <div class="ticket-holders hide">
         <Ticket
-          class="closedTicket"
-          v-for="ticket in closedTickets"
+          class="openTicket"
+          v-for="ticket in openTickets"
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
@@ -29,8 +29,8 @@
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
         <Ticket
-          class="openTicket"
-          v-for="ticket in openTickets"
+          class="closedTicket"
+          v-for="ticket in closedTickets"
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
@@ -58,8 +58,8 @@ export default {
   data() {
     return {
       tabs: [
-        { text: "Closed Tickets", status: 1 },
-        { text: "Open Tickets", status: 0 }
+        { text: "Open Tickets", status: 1 },
+        { text: "Closed Tickets", status: 0 }
       ],
       closedTickets: [],
       openTickets: [],
@@ -115,10 +115,10 @@ export default {
         contentBox[0].classList.remove("open");
 
         openTickets.forEach(element => {
-          element.classList.add("hide");
+          element.classList.remove("hide");
         });
         closedTickets.forEach(element => {
-          element.classList.remove("hide");
+          element.classList.add("hide");
         });
       } else if (index === 1) {
         btns[0].classList.remove("close");
@@ -127,10 +127,10 @@ export default {
         contentBox[0].classList.add("open");
 
         openTickets.forEach(element => {
-          element.classList.remove("hide");
+          element.classList.add("hide");
         });
         closedTickets.forEach(element => {
-          element.classList.add("hide");
+          element.classList.remove("hide");
         });
       }
     },
