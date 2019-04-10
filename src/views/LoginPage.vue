@@ -93,7 +93,7 @@ export default {
       email: "",
       emailRules: [
         v => !!v || "Email is required",
-        v => /.+@.+\..+/.test(v) || "Email must be valid"
+        v => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || "Email must be valid"
       ],
       password: "",
       passwordRules: [v => !!v || "Password is required"],
