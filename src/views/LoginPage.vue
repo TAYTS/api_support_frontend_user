@@ -78,13 +78,21 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <vue-recaptcha
+      ref="recaptchaLogin"
+      sitekey="6LdUL54UAAAAAMAh2UefbbeTtmJGd3fRk02dP9QK"
+      @verify="onCaptchaClick"
+      @expired="onCaptchaExpired"
+      size="invisible"
+    ></vue-recaptcha>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-
+import VueRecaptcha from "vue-recaptcha";
 export default {
+  components: { VueRecaptcha },
   data: () => {
     return {
       show: false,
@@ -114,7 +122,7 @@ export default {
     }, 10);
   },
   methods: {
-    submit() {
+    onCaptchaClick: function(recaptchaToken) {
       const pass = this.$refs.form.validate();
       if (pass) {
         const email = this.email;
@@ -124,7 +132,8 @@ export default {
           .dispatch("user/login", {
             email,
             password,
-            remember
+            remember,
+            recaptchaToken
           })
           .then(status => {
             if (status === 1) {
@@ -138,6 +147,12 @@ export default {
             }
           });
       }
+    },
+    submit() {
+      this.$refs.recaptchaLogin.execute();
+    },
+    onCaptchaExpired: function() {
+      this.$refs.recaptchaLogin.reset();
     },
     toggle_error() {
       this.error = !this.error;
