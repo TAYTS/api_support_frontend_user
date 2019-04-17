@@ -102,7 +102,6 @@ export default {
   components: {
     RegistrationDialog,
     VueRecaptcha
-      
   },
   data: () => {
     return {

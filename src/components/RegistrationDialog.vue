@@ -59,7 +59,14 @@
             </v-container>
           </v-form>
         </v-card-text>
-        <v-card-actions>
+        <vue-recaptcha
+          class="recaptcha"
+          ref="recaptchaRegister"
+          sitekey="6LdRL54UAAAAANhFg4AV5GyluUCG2Wf9a9MDN5hs"
+          @verify="onCaptchaClick"
+          @expired="onCaptchaExpired"
+        ></vue-recaptcha>
+        <v-card-actions class="buttons">
           <v-spacer></v-spacer>
           <v-btn color="purple darken-1" flat @click="dialog = false">Close</v-btn>
           <v-btn color="purple darken-1" flat :disabled="!valid" @click="submit()">Submit</v-btn>
@@ -71,7 +78,6 @@
         <v-card-title class="headline">Registration successful!</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn color="purple darken-1" flat="flat" @click="closeWindow()">Okay</v-btn>
         </v-card-actions>
       </v-card>
@@ -82,7 +88,12 @@
 
 <script>
 import EventBus from "@/store/eventBus.js";
+import VueRecaptcha from "vue-recaptcha";
+
 export default {
+  components: {
+    VueRecaptcha
+  },
   data() {
     return {
       dialog: false,
@@ -106,10 +117,18 @@ export default {
       passwordRules: [v => !!v || "Password is required"],
       usernameRules: [v => !!v || "Username is required"],
       error_messages: [],
-      confirmation: false
+      confirmation: false,
+      recaptchaToken: ""
     };
   },
   methods: {
+    onCaptchaClick: function(recaptchaToken) {
+      this.recaptchaToken = recaptchaToken;
+    },
+    onCaptchaExpired: function() {
+      this.recaptchaToken = "";
+      this.$refs.recaptchaLogin.reset();
+    },
     closeWindow() {
       this.confirmation = false;
       this.dialog = false;
@@ -126,12 +145,13 @@ export default {
         const email = this.email;
         const password = this.password;
         const username = this.username;
-
+        const recaptchaToken = this.recaptchaToken;
         this.$store
           .dispatch("user/register", {
             email,
             username,
-            password
+            password,
+            recaptchaToken
           })
           .then(status => {
             if (status === 1) {
@@ -161,3 +181,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.recaptcha {
+  top: 0;
+  margin: 0px 30px 0px 30px;
+}
+
+.buttons {
+  top: 0;
+  margin-top: 0;
+}
+</style>
