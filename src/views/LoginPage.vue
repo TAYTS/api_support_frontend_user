@@ -51,6 +51,10 @@
                       <v-layout column>
                         <v-checkbox v-model="remember" color="white" dark label="REMEMBER ME"></v-checkbox>
                         <v-btn block large color="accent" :disabled="!valid" @click="submit">SIGN IN</v-btn>
+                        <div>
+                          <a class="register" @click="activateDialog()">New user? Register here!</a>
+                        </div>
+                        <registration-dialog/>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
@@ -90,9 +94,16 @@
 
 <script>
 import Vue from "vue";
+import RegistrationDialog from "@/components/RegistrationDialog.vue";
+import EventBus from "@/store/eventBus.js";
 import VueRecaptcha from "vue-recaptcha";
+
 export default {
-  components: { VueRecaptcha },
+  components: {
+    RegistrationDialog,
+    VueRecaptcha
+      
+  },
   data: () => {
     return {
       show: false,
@@ -101,7 +112,10 @@ export default {
       email: "",
       emailRules: [
         v => !!v || "Email is required",
-        v => /.+@.+\..+/.test(v) || "Email must be valid"
+        v =>
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+            v
+          ) || "Email must be valid"
       ],
       password: "",
       passwordRules: [v => !!v || "Password is required"],
@@ -175,6 +189,9 @@ export default {
             }
           });
       });
+    },
+    activateDialog() {
+      EventBus.$emit("openRegistrationDialog");
     }
   }
 };
@@ -258,6 +275,12 @@ export default {
   border-radius: 1.5px;
   width: 42%;
   display: inline-block;
+}
+
+.register {
+  padding-left: 1px;
+  color: #0645ad;
+  font-size: 15px;
 }
 
 .social-btns {

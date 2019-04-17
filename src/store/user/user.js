@@ -108,6 +108,21 @@ const actions = {
       .catch(() => {
         return 0;
       });
+  },
+  register(context, payload) {
+    return axios
+      .post("/users/register", payload)
+      .then(response => {
+        if (response.status === 201) {
+          return 1;
+        } else {
+          deleteAllCookies();
+          return 0;
+        }
+      })
+      .catch(() => {
+        return 0;
+      });
   }
 };
 
