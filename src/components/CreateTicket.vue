@@ -2,13 +2,13 @@
   <v-layout class="create-ticket__container" align-center justify-center>
     <v-flex xs12 sm8 md5>
       <v-card class="form__container elevation-12">
-        <v-toolbar dark color="accent">
+        <v-toolbar class="form-title" color="#bccdf9">
           <v-toolbar-title class="title text-xs-center">Create Ticket</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
-              color="accent"
+              color="blue"
               v-model="title"
               name="login"
               label="Ticket Title"
@@ -18,7 +18,7 @@
               required
             ></v-text-field>
             <v-select
-              color="accent"
+              color="blue"
               v-model="selectedCategories"
               :items="categories"
               :filter="filter"
@@ -30,7 +30,7 @@
               required
             ></v-select>
             <v-textarea
-              color="accent"
+              color="blue"
               v-model="messages"
               name="message"
               :rules="messageRules"
@@ -48,7 +48,7 @@
               @change="handleAddFiles($event.target.files)"
             >
             <v-select
-              color="accent"
+              color="blue"
               v-model="files"
               label="Files"
               append-icon
@@ -75,7 +75,14 @@
             </v-select>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="accent" :loading="creating" :disabled="creating" @click="submit">Submit</v-btn>
+              <v-btn
+                outline
+                round
+                color="#0274ff"
+                :loading="creating"
+                :disabled="creating"
+                @click="submit"
+              >Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
@@ -95,7 +102,7 @@
         hide-overlay
       >
         <v-card>
-          <v-toolbar dark color="accent">
+          <v-toolbar dark color="0274ff">
             <v-btn icon dark @click="selected = null">
               <v-icon>close</v-icon>
             </v-btn>
@@ -355,12 +362,17 @@ export default {
 </script>
 
 <style>
+.form-title {
+  padding-top: 30px;
+  color: aqua;
+}
 .create-ticket__container {
   height: 100%;
+  width: 90%;
 }
 
 .form__container {
-  border-radius: 10px;
+  border-radius: 30px;
 }
 
 .error-message {

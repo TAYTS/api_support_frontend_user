@@ -22,11 +22,11 @@ export default {
   border-radius: 5px;
   padding: 5px 10px;
   background-color: transparent;
-  border: solid 2px #9f2edf;
+  border: solid 1px #648ffa;
 }
 
 .ticket-holder:hover {
-  background-color: #908e91;
+  background-color: #c9d6f7;
   cursor: pointer;
 }
 

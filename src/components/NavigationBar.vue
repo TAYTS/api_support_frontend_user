@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-bar__container">
-    <img class="main-logo" src="../assets/img/Accenture_Logo.svg">
+    <img class="main-logo" src="../assets/img/Accenture_Support_Staff.svg">
     <div class="options">
       <v-menu
         auto
@@ -71,11 +71,11 @@ export default {
 
 <style scoped>
 .nav-bar__container {
-  height: 60px;
+  height: 70px;
   width: 100%;
   position: fixed;
   z-index: 100;
-  background-color: #d099ef;
+  background-color: #efc7fa;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -83,14 +83,13 @@ export default {
 }
 
 .main-logo {
-  height: 100%;
-  padding: 10px;
-  padding-left: 0;
+  height: 100px;
+  padding: 20px 10px 10px 10px;
   display: inline-block;
 }
 
 .options {
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 .account-icon {

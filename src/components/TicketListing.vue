@@ -150,9 +150,11 @@ export default {
 }
 
 .title {
-  font-weight: normal;
-  margin-bottom: 30px;
-  padding-left: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-left: 30px;
+  font-family: Helvetica;
+  color: #0274ff;
 }
 
 .tab-group {
@@ -161,7 +163,7 @@ export default {
 
 .tab-button {
   position: relative;
-  background-color: #ba5a31;
+  background-color: #e0bffc;
   padding: 10px 20px;
   margin-right: 10px;
   border-radius: 10px 10px 0 0;
@@ -175,11 +177,11 @@ export default {
 }
 
 .close {
-  background-color: #e59f71;
+  background-color: #bccdf9;
 }
 
 .open {
-  background-color: #a991b6;
+  background-color: #c7aad6;
 }
 
 .tabview {

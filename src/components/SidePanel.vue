@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    class="background side-panel__container"
+    class="side-panel__container"
     height="calc(100vh - 60px)"
     width="230px"
     permanent
@@ -50,15 +50,18 @@ export default {
 .side-panel__container {
   top: 60px;
   padding: 50px 15px;
+  color: rgb(110, 107, 248);
+  background-color: #754b4b;
 }
 
 .hightlighted {
-  color: white;
+  color: black;
 }
 
 .navigation-title {
   font-size: 16px;
   font-weight: bold;
+  color: rgb(171, 171, 171);
 }
 
 .navigation-item {
@@ -67,7 +70,7 @@ export default {
 
 .navigation-item:hover,
 .navigation-item > a:hover {
-  background-color: #d099ef;
+  background-color: #f5e9ff;
   border-radius: 10px;
 }
 </style>
