@@ -29,9 +29,7 @@ export default {
     // Check if the user has been authenticate
     this.$store.dispatch("user/authenticate", {}).then(status => {
       // Redirect to login page if the user is not authenticated
-      if (status === 0) {
-        this.$router.push({ name: "LoginPage" });
-      } else {
+      if (status === 1) {
         // Render the user page if the user is authenticated
         // Get the Twilio access token
         setTimeout(() => {
@@ -42,6 +40,8 @@ export default {
             }
           });
         }, 100);
+      } else {
+        this.$router.push({ name: "LoginPage" });
       }
     });
   }
