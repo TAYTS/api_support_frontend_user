@@ -148,20 +148,23 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .titles {
-  margin-bottom: 15px;
   font-style: bold;
   font-size: 30px;
   padding-bottom: 5px;
   padding-left: 30px;
   color: #494949;
   background-color: transparent;
+  flex: 1;
 }
 
 .tab-group {
   padding: 0 20px;
+  flex: 0;
 }
 
 .tab-button {
@@ -189,12 +192,16 @@ export default {
   width: 100%;
   height: 90%;
   border-radius: 10px;
-  padding: 40px 5px;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 9;
 }
 
 .tabview-header {
   margin: 0 60px;
   border-bottom: solid 2px #648ffa;
+  flex: 0;
 }
 
 .tabview-header > * {
@@ -205,13 +212,14 @@ export default {
 
 .tabview-title {
   width: 40%;
+  padding-left: 15px;
 }
 
 .ticket-holders {
   width: 100%;
-  height: 100%;
   padding: 0 50px;
   overflow: auto;
+  flex: 9;
 }
 
 .hide {

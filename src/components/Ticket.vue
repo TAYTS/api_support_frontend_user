@@ -40,6 +40,7 @@ export default {
 
 .ticket-title {
   width: 40%;
+  padding-left: 15px;
 }
 </style>
 
