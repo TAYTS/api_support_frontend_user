@@ -84,9 +84,7 @@ export default {
 
 .main-logo {
   width: 230px;
-
   padding: 20px;
-
   display: inline-block;
 }
 

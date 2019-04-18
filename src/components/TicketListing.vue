@@ -24,7 +24,7 @@
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
-          :lastActivity="ticket.last_activity"
+          :category="ticket.category"
           :status="ticket.status"
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
@@ -34,7 +34,7 @@
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
-          :lastActivity="ticket.last_activity"
+          :lastActivity="ticket.category"
           :status="ticket.status"
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
@@ -198,12 +198,12 @@ export default {
 
 .tabview-header > * {
   display: inline-block;
-  width: 15%;
+  width: 20%;
   font-size: 20px;
 }
 
 .tabview-title {
-  width: 50%;
+  width: 40%;
 }
 
 .ticket-holders {
