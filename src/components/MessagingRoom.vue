@@ -6,7 +6,7 @@
       </v-btn>
       <v-toolbar-title>Ticket: {{ id }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon :disabled="resolved" @click="resolveTicket">
+      <v-btn icon :disabled="resolved" @click="resolvingTicket = true">
         <v-icon>check</v-icon>
       </v-btn>
     </v-toolbar>
@@ -92,6 +92,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog class="resolve-dialog" v-model="resolvingTicket" persistent max-width="350px" lazy>
+      <v-card>
+        <v-toolbar dark color="accent">
+          <v-spacer/>
+          <v-toolbar-title class="title text-xs-center">Confirm Resolve Ticket?</v-toolbar-title>
+          <v-spacer/>
+        </v-toolbar>
+        <v-container>
+          <v-card-actions>
+            <v-btn color="red lighten-2" large @click="resolvingTicket = false">Cancel</v-btn>
+            <v-spacer/>
+            <v-btn color="accent" large @click="resolveTicket">Confirm</v-btn>
+          </v-card-actions>
+        </v-container>
+      </v-card>
+    </v-dialog>
     <v-snackbar v-model="snackbar" class="error-message" bottom>
       {{ snackbarText }}
       <v-btn dark flat @click="snackbar=false">Close</v-btn>
@@ -123,7 +139,8 @@ export default {
       timeout: 3000,
       snackbarText: "",
       dialog: false,
-      resolved: false
+      resolved: false,
+      resolvingTicket: false
     };
   },
   props: ["id"],
