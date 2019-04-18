@@ -40,7 +40,7 @@
         ></Ticket>
       </div>
     </div>
-    <v-snackbar v-model="snackbar" class="error-message" bottom>
+    <v-snackbar v-model="snackbar" class="error-message" :timeout="timeout" bottom>
       {{ snackbarText }}
       <v-btn dark flat @click="snackbar=false">Close</v-btn>
     </v-snackbar>
@@ -64,6 +64,7 @@ export default {
       closedTickets: [],
       openTickets: [],
       snackbar: false,
+      timeout: 3000,
       snackbarText: ""
     };
   },
