@@ -34,7 +34,6 @@ export default {
   display: inline-block;
   width: 15%;
   font-size: 16px;
-  font-weight: bold;
 }
 
 .ticket-title {

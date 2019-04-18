@@ -170,7 +170,6 @@ export default {
   margin-right: 10px;
   border-radius: 10px 10px 0 0;
   transform: rotateX(50);
-  font-weight: bold;
   font-size: 16px;
 }
 
@@ -202,7 +201,6 @@ export default {
   display: inline-block;
   width: 15%;
   font-size: 20px;
-  font-weight: bold;
 }
 
 .tabview-title {
