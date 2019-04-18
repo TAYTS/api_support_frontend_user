@@ -56,7 +56,7 @@ export default {
 }
 
 .content {
-  height: 100%;
+  height: 100vh;
   padding: 100px 50px 100px 280px;
 }
 </style>

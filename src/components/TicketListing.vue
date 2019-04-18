@@ -169,7 +169,6 @@ export default {
   padding: 10px 20px;
   margin-right: 10px;
   border-radius: 10px 10px 0 0;
-  transform: rotateX(50);
   font-size: 16px;
 }
 

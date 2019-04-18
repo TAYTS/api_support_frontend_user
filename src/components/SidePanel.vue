@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     class="side-panel__container"
-    height="calc(100vh )"
+    height="100vh"
     width="230px"
     permanent
     absolute
