@@ -6,7 +6,7 @@
       </v-btn>
       <v-toolbar-title>Ticket: {{ id }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="resolveTicket">
+      <v-btn icon :disabled="resolved" @click="resolveTicket">
         <v-icon>check</v-icon>
       </v-btn>
     </v-toolbar>
@@ -33,6 +33,7 @@
       prepend-inner-icon="attach_file"
       color="accent"
       background-color="lightbackground"
+      :disabled="resolved"
       @keyup.enter="sendMessage"
       @click:prepend-inner.stop="addFiles"
     ></v-textarea>
@@ -121,11 +122,20 @@ export default {
       snackbar: false,
       timeout: 3000,
       snackbarText: "",
-      dialog: false
+      dialog: false,
+      resolved: false
     };
   },
   props: ["id"],
   mounted() {
+    this.$store
+      .dispatch("tickets/checkResolved", {
+        id_ticket_hash: this.id
+      })
+      .then(resolved => {
+        this.resolved = resolved;
+      });
+
     const messageContainer = document.querySelector(".messages__container");
     this.channel = this.$store.getters["messages/getChannel"](this.id);
     this.$store
