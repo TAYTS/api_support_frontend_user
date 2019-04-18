@@ -108,7 +108,7 @@
         </v-container>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" class="error-message" bottom>
+    <v-snackbar v-model="snackbar" bottom>
       {{ snackbarText }}
       <v-btn dark flat @click="snackbar=false">Close</v-btn>
     </v-snackbar>
@@ -305,6 +305,9 @@ export default {
         .then(status => {
           if (status === 1) {
             this.$router.replace({ name: "TicketListing" });
+          } else {
+            this.snackbar = true;
+            this.snackbarText = "Unable to reolve ticket, please try again.";
           }
         });
     }
