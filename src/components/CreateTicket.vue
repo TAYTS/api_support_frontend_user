@@ -363,8 +363,7 @@ export default {
 
 <style>
 .form-title {
-  padding-top: 30px;
-  color: aqua;
+  padding-top: 10px;
 }
 .create-ticket__container {
   height: 100%;
@@ -372,7 +371,7 @@ export default {
 }
 
 .form__container {
-  border-radius: 30px;
+  border-radius: 15px;
 }
 
 .error-message {

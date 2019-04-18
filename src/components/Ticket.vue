@@ -26,7 +26,7 @@ export default {
 }
 
 .ticket-holder:hover {
-  background-color: #c9d6f7;
+  background-color: #648efa41;
   cursor: pointer;
 }
 

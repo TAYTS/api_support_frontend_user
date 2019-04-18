@@ -1,6 +1,6 @@
 <template>
   <v-container class="ticketlist__container" fluid>
-    <h2 class="title">Ticket Records</h2>
+    <div class="titles">Ticket Records</div>
     <div class="tab-group">
       <button
         v-for="(title, index) in tabs"
@@ -14,7 +14,7 @@
       <div class="tabview-header">
         <div class="tabview-title">Title</div>
         <div class="tabview-created">Created</div>
-        <div class="tabview-lastactivity">Last Activity</div>
+        <div class="tabview-lastactivity">Category</div>
         <div class="tabview-status">Status</div>
       </div>
       <div class="ticket-holders hide">
@@ -149,12 +149,14 @@ export default {
   padding: 0;
 }
 
-.title {
-  font-weight: bold;
-  margin-bottom: 20px;
+.titles {
+  margin-bottom: 15px;
+  font-style: bold;
+  font-size: 30px;
+  padding-bottom: 5px;
   padding-left: 30px;
-  font-family: Helvetica;
-  color: #0274ff;
+  color: #494949;
+  background-color: transparent;
 }
 
 .tab-group {
@@ -163,7 +165,7 @@ export default {
 
 .tab-button {
   position: relative;
-  background-color: #e0bffc;
+  background-color: #c7aad6;
   padding: 10px 20px;
   margin-right: 10px;
   border-radius: 10px 10px 0 0;
@@ -181,25 +183,25 @@ export default {
 }
 
 .open {
-  background-color: #c7aad6;
+  background-color: #efc7fa;
 }
 
 .tabview {
   width: 100%;
-  height: 600px;
+  height: 90%;
   border-radius: 10px;
   padding: 40px 5px;
 }
 
 .tabview-header {
   margin: 0 60px;
-  border-bottom: solid 2px #9f2edf;
+  border-bottom: solid 2px #648ffa;
 }
 
 .tabview-header > * {
   display: inline-block;
   width: 15%;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 

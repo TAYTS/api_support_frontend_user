@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-bar__container">
-    <img class="main-logo" src="../assets/img/Accenture_Support_Staff.svg">
+    <img class="main-logo" src="../assets/img/Accenture_Logo.svg">
     <div class="options">
       <v-menu
         auto
@@ -83,8 +83,10 @@ export default {
 }
 
 .main-logo {
-  height: 100px;
-  padding: 20px 10px 10px 10px;
+  width: 230px;
+
+  padding: 20px;
+
   display: inline-block;
 }
 
