@@ -108,7 +108,7 @@
         </v-container>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" bottom>
+    <v-snackbar v-model="snackbar" :timeout="timeout" bottom>
       {{ snackbarText }}
       <v-btn dark flat @click="snackbar=false">Close</v-btn>
     </v-snackbar>
