@@ -6,7 +6,7 @@ const state = {
 };
 
 const actions = {
-  getTickets() {
+  getTickets({ commit }) {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
       return axios
@@ -17,6 +17,7 @@ const actions = {
         })
         .then(response => {
           if (response.status === 200) {
+            commit("storeTickets", response.data);
             return response.data;
           }
         })
@@ -57,13 +58,49 @@ const actions = {
         resolve(0);
       });
     }
+  },
+  resolveTicket(context, id_ticket_hash) {
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      return axios
+        .put("/tickets/resolve-ticket", id_ticket_hash, {
+          headers: {
+            "X-CSRF-TOKEN": access_token
+          }
+        })
+        .then(response => {
+          if (response.status === 200 && response.data.status === 1) {
+            return response.data.status;
+          } else {
+            return 0;
+          }
+        })
+        .catch(() => {
+          return 0;
+        });
+    } else {
+      // Invalid credential
+      return new Promise(resolve => {
+        resolve(0);
+      });
+    }
+  },
+  checkResolved(context, { id_ticket_hash }) {
+    for (let i = 0; i < state.close.length; i++) {
+      if (state.close[i].ticketID === id_ticket_hash) {
+        if (state.close[i].status === "Solved") {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 };
 
 const mutations = {
-  addTickets(state, tickets) {
-    state.open = tickets.open;
-    state.close = tickets.close;
+  storeTickets(state, tickets) {
+    state.open = [...tickets.open];
+    state.close = [...tickets.close];
   }
 };
 

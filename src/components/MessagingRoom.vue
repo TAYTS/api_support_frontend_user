@@ -1,10 +1,14 @@
 <template>
   <div class="messaging-room__container">
     <v-toolbar class="messaging-room__header" dark color="accent">
-      <v-btn icon class="hidden-xs-only" @click="ticketListing">
+      <v-btn icon @click="ticketListing">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>Ticket: {{ id }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon :disabled="resolved" @click="resolvingTicket = true">
+        <v-icon>check</v-icon>
+      </v-btn>
     </v-toolbar>
     <div class="messages__container">
       <MessageBubble
@@ -29,6 +33,7 @@
       prepend-inner-icon="attach_file"
       color="accent"
       background-color="lightbackground"
+      :disabled="resolved"
       @keyup.enter="sendMessage"
       @click:prepend-inner.stop="addFiles"
     ></v-textarea>
@@ -87,7 +92,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-snackbar v-model="snackbar" class="error-message" bottom>
+    <v-dialog class="resolve-dialog" v-model="resolvingTicket" persistent max-width="350px" lazy>
+      <v-card>
+        <v-toolbar dark color="accent">
+          <v-spacer/>
+          <v-toolbar-title class="title text-xs-center">Confirm Resolve Ticket?</v-toolbar-title>
+          <v-spacer/>
+        </v-toolbar>
+        <v-container>
+          <v-card-actions>
+            <v-btn color="red lighten-2" large @click="resolvingTicket = false">Cancel</v-btn>
+            <v-spacer/>
+            <v-btn color="accent" large @click="resolveTicket">Confirm</v-btn>
+          </v-card-actions>
+        </v-container>
+      </v-card>
+    </v-dialog>
+    <v-snackbar v-model="snackbar" bottom>
       {{ snackbarText }}
       <v-btn dark flat @click="snackbar=false">Close</v-btn>
     </v-snackbar>
@@ -117,11 +138,21 @@ export default {
       snackbar: false,
       timeout: 3000,
       snackbarText: "",
-      dialog: false
+      dialog: false,
+      resolved: false,
+      resolvingTicket: false
     };
   },
   props: ["id"],
   mounted() {
+    this.$store
+      .dispatch("tickets/checkResolved", {
+        id_ticket_hash: this.id
+      })
+      .then(resolved => {
+        this.resolved = resolved;
+      });
+
     const messageContainer = document.querySelector(".messages__container");
     this.channel = this.$store.getters["messages/getChannel"](this.id);
     this.$store
@@ -264,6 +295,19 @@ export default {
             this.fileSize = 0;
             this.files = [];
             this.dialog = false;
+          }
+        });
+    },
+    resolveTicket() {
+      const id_ticket_hash = this.id;
+      this.$store
+        .dispatch("tickets/resolveTicket", { id_ticket_hash })
+        .then(status => {
+          if (status === 1) {
+            this.$router.replace({ name: "TicketListing" });
+          } else {
+            this.snackbar = true;
+            this.snackbarText = "Unable to reolve ticket, please try again.";
           }
         });
     }
