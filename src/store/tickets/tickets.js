@@ -84,16 +84,6 @@ const actions = {
         resolve(0);
       });
     }
-  },
-  checkResolved(context, { id_ticket_hash }) {
-    for (let i = 0; i < state.close.length; i++) {
-      if (state.close[i].ticketID === id_ticket_hash) {
-        if (state.close[i].status === "Solved") {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 };
 
@@ -104,9 +94,38 @@ const mutations = {
   }
 };
 
+const getters = {
+  getStatus: state => id => {
+    for (let i = 0; i < state.close.length; i++) {
+      if (state.close[i].ticketID === id) {
+        if (state.close[i].status === "Solved") {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+  getTicketTitle: state => (resolved, id) => {
+    if (resolved) {
+      for (let i = 0; i < state.close.length; i++) {
+        if (state.close[i].ticketID === id) {
+          return state.close[i].title;
+        }
+      }
+    } else {
+      for (let i = 0; i < state.open.length; i++) {
+        if (state.open[i].ticketID === id) {
+          return state.open[i].title;
+        }
+      }
+    }
+  }
+};
+
 export const tickets = {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 };

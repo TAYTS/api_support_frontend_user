@@ -183,7 +183,7 @@ export default {
 .login {
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(to right bottom, #ffffff, #d099ef);
+  background-image: linear-gradient(to right bottom, white, #d099ef);
 }
 
 .login__container {

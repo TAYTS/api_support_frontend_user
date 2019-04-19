@@ -1,6 +1,6 @@
 <template>
   <v-container class="ticketlist__container" fluid>
-    <h2 class="title">Ticket Records</h2>
+    <div class="titles">Ticket Records</div>
     <div class="tab-group">
       <button
         v-for="(title, index) in tabs"
@@ -13,8 +13,8 @@
     <div class="tabview">
       <div class="tabview-header">
         <div class="tabview-title">Title</div>
-        <div class="tabview-created">Created</div>
-        <div class="tabview-lastactivity">Last Activity</div>
+        <div class="tabview-created">Created On</div>
+        <div class="tabview-lastactivity">Category</div>
         <div class="tabview-status">Status</div>
       </div>
       <div class="ticket-holders hide">
@@ -24,7 +24,7 @@
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
-          :lastActivity="ticket.last_activity"
+          :category="ticket.category"
           :status="ticket.status"
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
@@ -34,7 +34,7 @@
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
-          :lastActivity="ticket.last_activity"
+          :category="ticket.category"
           :status="ticket.status"
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
@@ -85,7 +85,7 @@ export default {
           );
           ticketHolders[0].classList.remove("hide");
           this.toggleTab(0);
-        }, 1000);
+        }, 100);
       } else {
         this.snackbar = true;
         this.snackbarText =
@@ -148,26 +148,31 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.title {
-  font-weight: normal;
-  margin-bottom: 30px;
-  padding-left: 40px;
+.titles {
+  font-style: bold;
+  font-size: 30px;
+  padding-bottom: 5px;
+  padding-left: 30px;
+  color: #494949;
+  background-color: transparent;
+  flex: 1;
 }
 
 .tab-group {
   padding: 0 20px;
+  flex: 0;
 }
 
 .tab-button {
   position: relative;
-  background-color: #ba5a31;
+  background-color: #c7aad6;
   padding: 10px 20px;
   margin-right: 10px;
   border-radius: 10px 10px 0 0;
-  transform: rotateX(50);
-  font-weight: bold;
   font-size: 16px;
 }
 
@@ -176,41 +181,45 @@ export default {
 }
 
 .close {
-  background-color: #e59f71;
+  background-color: #bccdf9;
 }
 
 .open {
-  background-color: #a991b6;
+  background-color: #efc7fa;
 }
 
 .tabview {
   width: 100%;
-  height: 600px;
+  height: 90%;
   border-radius: 10px;
-  padding: 40px 5px;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 9;
 }
 
 .tabview-header {
   margin: 0 60px;
-  border-bottom: solid 2px #9f2edf;
+  border-bottom: solid 2px #648ffa;
+  flex: 0;
 }
 
 .tabview-header > * {
   display: inline-block;
-  width: 15%;
-  font-size: 16px;
-  font-weight: bold;
+  width: 20%;
+  font-size: 20px;
 }
 
 .tabview-title {
-  width: 50%;
+  width: 40%;
+  padding-left: 15px;
 }
 
 .ticket-holders {
   width: 100%;
-  height: 100%;
   padding: 0 50px;
   overflow: auto;
+  flex: 9;
 }
 
 .hide {

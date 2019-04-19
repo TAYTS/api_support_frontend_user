@@ -1,10 +1,10 @@
 <template>
   <div class="messaging-room__container">
-    <v-toolbar class="messaging-room__header" dark color="accent">
+    <v-toolbar class="messaging-room__header" color="accent1">
       <v-btn icon @click="ticketListing">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title>Ticket: {{ id }}</v-toolbar-title>
+      <v-toolbar-title>Ticket: {{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon :disabled="resolved" @click="resolvingTicket = true">
         <v-icon>check</v-icon>
@@ -21,22 +21,26 @@
         @download-media="downdloadMedia(message.index)"
       ></MessageBubble>
     </div>
-    <v-textarea
-      class="input-field"
-      v-model="message"
-      solo
-      flat
-      hide-details
-      no-resize
-      rows="5"
-      label="Type here..."
-      prepend-inner-icon="attach_file"
-      color="accent"
-      background-color="lightbackground"
-      :disabled="resolved"
-      @keyup.enter="sendMessage"
-      @click:prepend-inner.stop="addFiles"
-    ></v-textarea>
+    <div class="message-action">
+      <v-textarea
+        class="input-field"
+        v-model="message"
+        solo
+        flat
+        hide-details
+        no-resize
+        rows="5"
+        label="Type here..."
+        prepend-inner-icon="attach_file"
+        append-icon="send"
+        color="accent"
+        background-color="white"
+        :disabled="resolved"
+        @keyup.enter="sendMessage"
+        @click:prepend-inner.stop="addFiles"
+        @click:append.stop="sendMessage"
+      ></v-textarea>
+    </div>
     <input
       class="file-upload"
       type="file"
@@ -140,19 +144,17 @@ export default {
       snackbarText: "",
       dialog: false,
       resolved: false,
-      resolvingTicket: false
+      resolvingTicket: false,
+      title: ""
     };
   },
   props: ["id"],
   mounted() {
-    this.$store
-      .dispatch("tickets/checkResolved", {
-        id_ticket_hash: this.id
-      })
-      .then(resolved => {
-        this.resolved = resolved;
-      });
-
+    this.resolved = this.$store.getters["tickets/getStatus"](this.id);
+    this.title = this.$store.getters["tickets/getTicketTitle"](
+      this.resolved,
+      this.id
+    );
     const messageContainer = document.querySelector(".messages__container");
     this.channel = this.$store.getters["messages/getChannel"](this.id);
     this.$store
@@ -324,6 +326,8 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+    0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
 }
 
 .messaging-room__header {
@@ -332,19 +336,20 @@ export default {
 
 .messages__container {
   margin: 0;
-  padding: 10px;
-  background-color: #e6e6e6;
+  padding: 15px;
+  background-color: #f4f4f4;
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 80%;
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 150px;
   overflow: auto;
 }
 
-.input-field {
-  border-top: 1px solid #8c8c8c;
+.message-action {
+  flex: 0;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border-radius: 0 0 5px 5px;
 }
 
 .file-upload {
