@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard__container">
+  <div class="dashboard__container" id="canvas">
     <Loader :ready="ready"></Loader>
     <NavigationBar></NavigationBar>
     <SidePanel></SidePanel>
@@ -26,6 +26,13 @@ export default {
     };
   },
   mounted() {
+    let effect = VANTA.WAVES({
+      el: "#canvas",
+      color: 0xb765e7,
+      waveHeight: 15,
+      waveSpeed: 3
+    });
+
     // Check if the user has been authenticate
     this.$store.dispatch("user/authenticate", {}).then(status => {
       // Redirect to login page if the user is not authenticated
@@ -52,7 +59,7 @@ export default {
 .dashboard__container {
   height: 100%;
   width: 100%;
-  background: radial-gradient(white 10%, #d099ef);
+  /* background: radial-gradient(white 10%, #d099ef); */
 }
 
 .content {
