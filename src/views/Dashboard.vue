@@ -52,7 +52,7 @@ export default {
 .dashboard__container {
   height: 100%;
   width: 100%;
-  background-color: #eeeeee;
+  background: radial-gradient(white 10%, #d099ef);
 }
 
 .content {

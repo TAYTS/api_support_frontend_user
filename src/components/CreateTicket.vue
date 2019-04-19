@@ -1,11 +1,11 @@
 <template>
   <v-layout class="create-ticket__container" align-center justify-center>
-    <v-flex xs12 sm8 md5>
-      <v-card class="form__container elevation-12">
-        <v-toolbar class="form-title" color="#bccdf9">
-          <v-toolbar-title class="title text-xs-center">Create Ticket</v-toolbar-title>
+    <v-flex xs12 sm3 md12 lg6>
+      <v-card class="elevation-12">
+        <v-toolbar card color="accent1">
+          <v-toolbar-title>Create Ticket</v-toolbar-title>
         </v-toolbar>
-        <v-card-text>
+        <v-container>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
               color="blue"
@@ -86,7 +86,7 @@
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
-        </v-card-text>
+        </v-container>
       </v-card>
       <!-- Prompt Error Message -->
       <v-snackbar v-model="snackbar" class="error-message" :timeout="timeout" bottom>
@@ -142,9 +142,9 @@ export default {
       selectedCategories: null,
       categoriesRules: [
         v => {
-          if (!v || v.length < 1) return "Category is required";
-          else if (v.length > 3) {
-            return "Maximum 3 categories";
+          if (!v || v.length <= 0) return "Category is required";
+          else if (v.length > 1) {
+            return "Please select 1 category only";
           } else return true;
         }
       ],
@@ -239,7 +239,7 @@ export default {
       const pass = this.$refs.form.validate();
       if (pass) {
         const title = this.title;
-        const category = this.selectedCategories.join();
+        const category = this.selectedCategories;
         const message = this.messages;
         const files = this.files;
 
@@ -362,16 +362,8 @@ export default {
 </script>
 
 <style>
-.form-title {
-  padding-top: 10px;
-}
 .create-ticket__container {
   height: 100%;
-  width: 90%;
-}
-
-.form__container {
-  border-radius: 15px;
 }
 
 .error-message {

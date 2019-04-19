@@ -13,7 +13,7 @@
     <div class="tabview">
       <div class="tabview-header">
         <div class="tabview-title">Title</div>
-        <div class="tabview-created">Created</div>
+        <div class="tabview-created">Created On</div>
         <div class="tabview-lastactivity">Category</div>
         <div class="tabview-status">Status</div>
       </div>
@@ -34,7 +34,7 @@
           :key="ticket.ticketID"
           :title="ticket.title"
           :created="ticket.create_timestamp"
-          :lastActivity="ticket.category"
+          :category="ticket.category"
           :status="ticket.status"
           @select-ticket="displayTickets(ticket.ticketID)"
         ></Ticket>
@@ -85,7 +85,7 @@ export default {
           );
           ticketHolders[0].classList.remove("hide");
           this.toggleTab(0);
-        }, 1000);
+        }, 100);
       } else {
         this.snackbar = true;
         this.snackbarText =
