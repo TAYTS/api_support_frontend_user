@@ -239,7 +239,7 @@ export default {
       const pass = this.$refs.form.validate();
       if (pass) {
         const title = this.title;
-        const category = this.selectedCategories;
+        const category = this.selectedCategories.join();
         const message = this.messages;
         const files = this.files;
 
