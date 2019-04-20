@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard__container">
+  <div class="dashboard__container" id="canvas">
     <Loader :ready="ready"></Loader>
     <NavigationBar></NavigationBar>
     <SidePanel></SidePanel>
@@ -26,12 +26,17 @@ export default {
     };
   },
   mounted() {
+    let effect = VANTA.WAVES({
+      el: "#canvas",
+      color: 0xb765e7,
+      waveHeight: 15,
+      waveSpeed: 3
+    });
+
     // Check if the user has been authenticate
     this.$store.dispatch("user/authenticate", {}).then(status => {
       // Redirect to login page if the user is not authenticated
-      if (status === 0) {
-        this.$router.push({ name: "LoginPage" });
-      } else {
+      if (status === 1) {
         // Render the user page if the user is authenticated
         // Get the Twilio access token
         setTimeout(() => {
@@ -42,6 +47,8 @@ export default {
             }
           });
         }, 100);
+      } else {
+        this.$router.push({ name: "LoginPage" });
       }
     });
   }
@@ -52,11 +59,11 @@ export default {
 .dashboard__container {
   height: 100%;
   width: 100%;
-  background-color: #eeeeee;
+  /* background: radial-gradient(white 10%, #d099ef); */
 }
 
 .content {
-  height: 100%;
-  padding: 100px 50px 100px 280px;
+  height: 100vh;
+  padding: 100px 50px 30px 280px;
 }
 </style>

@@ -60,8 +60,8 @@ export default {
 
 .message {
   display: inline-block;
-  max-width: 50%;
-  padding: 5px;
+  max-width: 55%;
+  padding: 10px 5px;
   border-radius: 5px;
   background-color: #e0bdf5;
   word-wrap: break-word;

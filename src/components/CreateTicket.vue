@@ -1,14 +1,14 @@
 <template>
   <v-layout class="create-ticket__container" align-center justify-center>
-    <v-flex xs12 sm8 md5>
-      <v-card class="form__container elevation-12">
-        <v-toolbar dark color="accent">
-          <v-toolbar-title class="title text-xs-center">Create Ticket</v-toolbar-title>
+    <v-flex xs12 sm3 md12 lg6>
+      <v-card class="elevation-12">
+        <v-toolbar card color="accent1">
+          <v-toolbar-title>Create Ticket</v-toolbar-title>
         </v-toolbar>
-        <v-card-text>
+        <v-container>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
-              color="accent"
+              color="blue"
               v-model="title"
               name="login"
               label="Ticket Title"
@@ -18,7 +18,7 @@
               required
             ></v-text-field>
             <v-select
-              color="accent"
+              color="blue"
               v-model="selectedCategories"
               :items="categories"
               :filter="filter"
@@ -30,7 +30,7 @@
               required
             ></v-select>
             <v-textarea
-              color="accent"
+              color="blue"
               v-model="messages"
               name="message"
               :rules="messageRules"
@@ -48,7 +48,7 @@
               @change="handleAddFiles($event.target.files)"
             >
             <v-select
-              color="accent"
+              color="blue"
               v-model="files"
               label="Files"
               append-icon
@@ -75,14 +75,21 @@
             </v-select>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="accent" :loading="creating" :disabled="creating" @click="submit">Submit</v-btn>
+              <v-btn
+                outline
+                round
+                color="#0274ff"
+                :loading="creating"
+                :disabled="creating"
+                @click="submit"
+              >Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
-        </v-card-text>
+        </v-container>
       </v-card>
       <!-- Prompt Error Message -->
-      <v-snackbar v-model="snackbar" class="error-message" bottom>
+      <v-snackbar v-model="snackbar" class="error-message" :timeout="timeout" bottom>
         {{ snackbarText }}
         <v-btn dark flat @click="snackbar = false">Close</v-btn>
       </v-snackbar>
@@ -95,7 +102,7 @@
         hide-overlay
       >
         <v-card>
-          <v-toolbar dark color="accent">
+          <v-toolbar dark color="0274ff">
             <v-btn icon dark @click="selected = null">
               <v-icon>close</v-icon>
             </v-btn>
@@ -135,9 +142,9 @@ export default {
       selectedCategories: null,
       categoriesRules: [
         v => {
-          if (!v || v.length < 1) return "Category is required";
-          else if (v.length > 3) {
-            return "Maximum 3 categories";
+          if (!v || v.length <= 0) return "Category is required";
+          else if (v.length > 1) {
+            return "Please select 1 category only";
           } else return true;
         }
       ],
@@ -232,7 +239,7 @@ export default {
       const pass = this.$refs.form.validate();
       if (pass) {
         const title = this.title;
-        const category = this.selectedCategories.join();
+        const category = this.selectedCategories;
         const message = this.messages;
         const files = this.files;
 
@@ -357,10 +364,6 @@ export default {
 <style>
 .create-ticket__container {
   height: 100%;
-}
-
-.form__container {
-  border-radius: 10px;
 }
 
 .error-message {

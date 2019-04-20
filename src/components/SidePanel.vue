@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
-    class="background side-panel__container"
-    height="calc(100vh - 60px)"
+    class="side-panel__container"
+    height="100vh"
     width="230px"
     permanent
     absolute
@@ -48,26 +48,30 @@ export default {
 
 <style>
 .side-panel__container {
-  top: 60px;
-  padding: 50px 15px;
+  background-color: white;
+  padding: 90px 15px;
+  color: rgb(110, 107, 248);
 }
 
 .hightlighted {
-  color: white;
+  color: black;
 }
 
 .navigation-title {
   font-size: 16px;
-  font-weight: bold;
+  color: rgb(171, 171, 171);
 }
 
 .navigation-item {
+  border: solid 1px #648ffa;
+  border-radius: 8px;
   margin: 10px 0;
+  width: 100%;
 }
 
 .navigation-item:hover,
 .navigation-item > a:hover {
-  background-color: #d099ef;
+  background-color: #f5e9ff;
   border-radius: 10px;
 }
 </style>
