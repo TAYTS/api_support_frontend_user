@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" max-width="600px">
       <v-card>
         <v-toolbar card dark color="primary">
-          <v-toolbar-title class="headline">Register new admin</v-toolbar-title>
+          <v-toolbar-title class="headline">Register new user</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
