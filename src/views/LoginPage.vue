@@ -156,6 +156,7 @@ export default {
               this.error = true;
               this.email = "";
               this.password = "";
+              this.onCaptchaExpired();
               this.error_messages.push("Invalid email or password!");
             }
           });

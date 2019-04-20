@@ -7,7 +7,7 @@
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-container grid-list-md>
+            <v-container>
               <v-layout wrap>
                 <v-flex xs12>
                   <v-text-field
@@ -58,18 +58,22 @@
               </v-layout>
             </v-container>
           </v-form>
+          <vue-recaptcha
+            ref="recaptchaRegister"
+            sitekey="6LdRL54UAAAAANhFg4AV5GyluUCG2Wf9a9MDN5hs"
+            @verify="onCaptchaClick"
+            @expired="onCaptchaExpired"
+          ></vue-recaptcha>
         </v-card-text>
-        <vue-recaptcha
-          class="recaptcha"
-          ref="recaptchaRegister"
-          sitekey="6LdRL54UAAAAANhFg4AV5GyluUCG2Wf9a9MDN5hs"
-          @verify="onCaptchaClick"
-          @expired="onCaptchaExpired"
-        ></vue-recaptcha>
         <v-card-actions class="buttons">
           <v-spacer></v-spacer>
           <v-btn color="purple darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="purple darken-1" flat :disabled="!valid" @click="submit()">Submit</v-btn>
+          <v-btn
+            color="purple darken-1"
+            flat
+            :disabled="!valid || this.recaptchaToken == ''"
+            @click="submit()"
+          >Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -78,6 +82,7 @@
         <v-card-title class="headline">Registration successful!</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
+
           <v-btn color="purple darken-1" flat="flat" @click="closeWindow()">Okay</v-btn>
         </v-card-actions>
       </v-card>
@@ -127,7 +132,7 @@ export default {
     },
     onCaptchaExpired: function() {
       this.recaptchaToken = "";
-      this.$refs.recaptchaLogin.reset();
+      this.$refs.recaptchaRegister.reset();
     },
     closeWindow() {
       this.confirmation = false;
@@ -156,13 +161,15 @@ export default {
           .then(status => {
             if (status === 1) {
               this.confirmation = true;
+              this.onCaptchaExpired();
             } else {
               this.error = true;
               this.email = "";
               this.password = "";
               this.passwordCheck = "";
               this.username = "";
-              this.error_messages.push("Invalid username or password!");
+              this.onCaptchaExpired();
+              this.error_messages.push("Account already exists");
             }
           });
       }
@@ -177,17 +184,13 @@ export default {
   mounted() {
     EventBus.$on("openRegistrationDialog", () => {
       this.dialog = true;
+      this.valid = false;
     });
   }
 };
 </script>
 
 <style scoped>
-.recaptcha {
-  top: 0;
-  margin: 0px 30px 0px 30px;
-}
-
 .buttons {
   top: 0;
   margin-top: 0;
