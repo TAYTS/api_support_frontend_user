@@ -2,9 +2,9 @@
   <div>
     <v-dialog v-model="dialog" max-width="600px">
       <v-card>
-        <v-card-title class="headline">
-          <span>Register new admin</span>
-        </v-card-title>
+        <v-toolbar dark color="accent">
+          <v-toolbar-title class="headline">Register New Account</v-toolbar-title>
+        </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-container grid-list-md>
@@ -16,6 +16,7 @@
                     :error-messages="error_messages"
                     @update:error="toggle_error"
                     @input="update_error_message"
+                    color="accent"
                     label="Username"
                     required
                   ></v-text-field>
@@ -27,6 +28,7 @@
                     :error-messages="error_messages"
                     @update:error="toggle_error"
                     @input="update_error_message"
+                    color="accent"
                     label="Email"
                     required
                   ></v-text-field>
@@ -38,6 +40,7 @@
                     :error-messages="error_messages"
                     @update:error="toggle_error"
                     @input="update_error_message"
+                    color="accent"
                     label="Password"
                     type="password"
                     required
@@ -50,6 +53,7 @@
                     :error-messages="error_messages"
                     @update:error="toggle_error"
                     @input="update_error_message"
+                    color="accent"
                     label="Confirm Password"
                     type="password"
                     required
@@ -60,9 +64,13 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="purple darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="purple darken-1" flat :disabled="!valid" @click="submit()">Submit</v-btn>
+          <v-spacer/>
+          <v-spacer/>
+          <v-btn color="red" @click="dialog = false">Close</v-btn>
+          <v-spacer/>
+          <v-btn color="accent" :disabled="!valid" @click="submit()">Submit</v-btn>
+          <v-spacer/>
+          <v-spacer/>
         </v-card-actions>
       </v-card>
     </v-dialog>
