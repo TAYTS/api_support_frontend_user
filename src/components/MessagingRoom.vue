@@ -50,8 +50,8 @@
     >
     <v-dialog class="upload-dialog" v-model="dialog" persistent max-width="600px" lazy>
       <v-card>
-        <v-toolbar dark color="accent">
-          <v-toolbar-title class="title text-xs-center">Confirm Upload</v-toolbar-title>
+        <v-toolbar color="accent1">
+          <v-toolbar-title class="headline text-xs-center">Confirm Upload</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form>
@@ -84,10 +84,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red lighten-2" :disabled="uploading" @click="cancelUpload">Cancel</v-btn>
+          <v-btn color="red lighten-3" :disabled="uploading" @click="cancelUpload">Cancel</v-btn>
           <v-spacer></v-spacer>
           <v-btn
-            color="accent"
+            color="accent2"
             :loading="uploading"
             :disabled="uploading"
             @click="confirmUpload"
@@ -98,16 +98,16 @@
     </v-dialog>
     <v-dialog class="resolve-dialog" v-model="resolvingTicket" persistent max-width="350px" lazy>
       <v-card>
-        <v-toolbar dark color="accent">
+        <v-toolbar color="accent1">
           <v-spacer/>
-          <v-toolbar-title class="title text-xs-center">Confirm Resolve Ticket?</v-toolbar-title>
+          <v-toolbar-title class="headline text-xs-center">Confirm Resolve Ticket?</v-toolbar-title>
           <v-spacer/>
         </v-toolbar>
         <v-container>
           <v-card-actions>
-            <v-btn color="red lighten-2" large @click="resolvingTicket = false">Cancel</v-btn>
+            <v-btn color="red lighten-3" large @click="resolvingTicket = false">Cancel</v-btn>
             <v-spacer/>
-            <v-btn color="accent" large @click="resolveTicket">Confirm</v-btn>
+            <v-btn color="accent2" large @click="resolveTicket">Confirm</v-btn>
           </v-card-actions>
         </v-container>
       </v-card>

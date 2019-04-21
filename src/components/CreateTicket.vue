@@ -1,8 +1,8 @@
 <template>
   <v-layout class="create-ticket__container" align-center justify-center>
     <v-flex xs12 sm3 md12 lg6>
-      <v-card class="elevation-12">
-        <v-toolbar card color="accent1">
+      <v-card class="elevation-12 form-main__container">
+        <v-toolbar class="header" color="accent1">
           <v-toolbar-title>Create Ticket</v-toolbar-title>
         </v-toolbar>
         <v-container>
@@ -239,7 +239,7 @@ export default {
       const pass = this.$refs.form.validate();
       if (pass) {
         const title = this.title;
-        const category = this.selectedCategories;
+        const category = this.selectedCategories.join();
         const message = this.messages;
         const files = this.files;
 
@@ -364,6 +364,14 @@ export default {
 <style>
 .create-ticket__container {
   height: 100%;
+}
+
+.form-main__container {
+  border-radius: 5px;
+}
+
+.header {
+  border-radius: 5px 5px 0 0;
 }
 
 .error-message {
