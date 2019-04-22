@@ -3,7 +3,7 @@
     <v-container fluid class="login__container">
       <v-layout align-center justify-center row fill-height>
         <v-flex xs7 class="text-xs-right">
-          <img class="logo-main" src="../assets/img/Accenture_Support_Staff.svg" alt>
+          <img class="logo-main" src="../assets/img/Accenture_Customer.svg" alt>
         </v-flex>
         <v-flex xs1 class="text-xs-center">
           <div class="main-divider"></div>
@@ -82,6 +82,13 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <vue-recaptcha
+      ref="recaptchaLogin"
+      sitekey="6LdUL54UAAAAAMAh2UefbbeTtmJGd3fRk02dP9QK"
+      @verify="onCaptchaClick"
+      @expired="onCaptchaExpired"
+      size="invisible"
+    ></vue-recaptcha>
   </div>
 </template>
 
@@ -89,9 +96,12 @@
 import Vue from "vue";
 import RegistrationDialog from "@/components/RegistrationDialog.vue";
 import EventBus from "@/store/eventBus.js";
+import VueRecaptcha from "vue-recaptcha";
+
 export default {
   components: {
-    RegistrationDialog
+    RegistrationDialog,
+    VueRecaptcha
   },
   data: () => {
     return {
@@ -125,7 +135,7 @@ export default {
     }, 10);
   },
   methods: {
-    submit() {
+    onCaptchaClick: function(recaptchaToken) {
       const pass = this.$refs.form.validate();
       if (pass) {
         const email = this.email;
@@ -135,7 +145,8 @@ export default {
           .dispatch("user/login", {
             email,
             password,
-            remember
+            remember,
+            recaptchaToken
           })
           .then(status => {
             if (status === 1) {
@@ -145,10 +156,17 @@ export default {
               this.error = true;
               this.email = "";
               this.password = "";
+              this.onCaptchaExpired();
               this.error_messages.push("Invalid email or password!");
             }
           });
       }
+    },
+    submit() {
+      this.$refs.recaptchaLogin.execute();
+    },
+    onCaptchaExpired: function() {
+      this.$refs.recaptchaLogin.reset();
     },
     toggle_error() {
       this.error = !this.error;

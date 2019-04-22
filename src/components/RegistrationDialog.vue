@@ -7,7 +7,7 @@
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-container grid-list-md>
+            <v-container>
               <v-layout wrap>
                 <v-flex xs12>
                   <v-text-field
@@ -59,6 +59,14 @@
                     required
                   ></v-text-field>
                 </v-flex>
+                <v-flex xs12>
+                  <vue-recaptcha
+                    ref="recaptchaRegister"
+                    sitekey="6LdRL54UAAAAANhFg4AV5GyluUCG2Wf9a9MDN5hs"
+                    @verify="onCaptchaClick"
+                    @expired="onCaptchaExpired"
+                  />
+                </v-flex>
               </v-layout>
             </v-container>
           </v-form>
@@ -68,7 +76,11 @@
           <v-spacer/>
           <v-btn color="red" @click="dialog = false">Close</v-btn>
           <v-spacer/>
-          <v-btn color="accent" :disabled="!valid" @click="submit()">Submit</v-btn>
+          <v-btn
+            color="accent"
+            :disabled="!valid || this.recaptchaToken == ''"
+            @click="submit"
+          >Submit</v-btn>
           <v-spacer/>
           <v-spacer/>
         </v-card-actions>
@@ -90,7 +102,12 @@
 
 <script>
 import EventBus from "@/store/eventBus.js";
+import VueRecaptcha from "vue-recaptcha";
+
 export default {
+  components: {
+    VueRecaptcha
+  },
   data() {
     return {
       dialog: false,
@@ -114,10 +131,18 @@ export default {
       passwordRules: [v => !!v || "Password is required"],
       usernameRules: [v => !!v || "Username is required"],
       error_messages: [],
-      confirmation: false
+      confirmation: false,
+      recaptchaToken: ""
     };
   },
   methods: {
+    onCaptchaClick: function(recaptchaToken) {
+      this.recaptchaToken = recaptchaToken;
+    },
+    onCaptchaExpired: function() {
+      this.recaptchaToken = "";
+      this.$refs.recaptchaRegister.reset();
+    },
     closeWindow() {
       this.confirmation = false;
       this.dialog = false;
@@ -134,23 +159,26 @@ export default {
         const email = this.email;
         const password = this.password;
         const username = this.username;
-
+        const recaptchaToken = this.recaptchaToken;
         this.$store
           .dispatch("user/register", {
             email,
             username,
-            password
+            password,
+            recaptchaToken
           })
           .then(status => {
             if (status === 1) {
               this.confirmation = true;
+              this.onCaptchaExpired();
             } else {
               this.error = true;
               this.email = "";
               this.password = "";
               this.passwordCheck = "";
               this.username = "";
-              this.error_messages.push("Invalid username or password!");
+              this.onCaptchaExpired();
+              this.error_messages.push("Account already exists");
             }
           });
       }
@@ -165,7 +193,11 @@ export default {
   mounted() {
     EventBus.$on("openRegistrationDialog", () => {
       this.dialog = true;
+      this.valid = false;
     });
   }
 };
 </script>
+
+<style scoped>
+</style>
