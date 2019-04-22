@@ -3,7 +3,7 @@
     <v-container fluid class="login__container">
       <v-layout align-center justify-center row fill-height>
         <v-flex xs7 class="text-xs-right">
-          <img class="logo-main" src="../assets/img/Accenture_Support_Staff.svg" alt>
+          <img class="logo-main" src="../assets/img/Accenture_Customer.svg" alt>
         </v-flex>
         <v-flex xs1 class="text-xs-center">
           <div class="main-divider"></div>
