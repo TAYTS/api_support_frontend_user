@@ -39,14 +39,12 @@ export default {
       if (status === 1) {
         // Render the user page if the user is authenticated
         // Get the Twilio access token
-        setTimeout(() => {
-          this.$router.push({ name: "TicketListing" });
-          this.$store.dispatch("messages/initClient").then(status => {
-            if (status) {
-              this.ready = true;
-            }
-          });
-        }, 100);
+        this.$router.push({ name: "TicketListing" });
+        this.$store.dispatch("messages/initClient").then(status => {
+          if (status) {
+            this.ready = true;
+          }
+        });
       } else {
         this.$router.push({ name: "LoginPage" });
       }
