@@ -1,6 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import LoginPage from "./views/LoginPage.vue";
+import Dashboard from "./views/Dashboard.vue";
+import TicketListing from "./components/TicketListing.vue";
+import CreateTicket from "./components/CreateTicket.vue";
+import MessagingRoom from "./components/MessagingRoom";
 
 Vue.use(Router);
 
@@ -9,18 +13,36 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: "/login",
+      name: "LoginPage",
+      component: LoginPage
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/",
+      name: "Dashboard",
+      component: Dashboard,
+      children: [
+        {
+          path: "ticket-listing",
+          name: "TicketListing",
+          component: TicketListing
+        },
+        {
+          path: "create-ticket",
+          name: "CreateTicket",
+          component: CreateTicket
+        },
+        {
+          path: "/ticket/:id",
+          name: "DisplayTicket",
+          props: true,
+          component: MessagingRoom
+        }
+      ]
+    },
+    {
+      path: "/*",
+      redirect: "/"
     }
   ]
 });
