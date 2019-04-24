@@ -39,6 +39,10 @@ export default new Router({
           component: MessagingRoom
         }
       ]
+    },
+    {
+      path: "/*",
+      redirect: "/"
     }
   ]
 });
